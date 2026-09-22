@@ -38,6 +38,9 @@
   `.ai` text to stay editable (Inter and Montserrat are).
 - Keep effects that rasterize (box-shadow, filter, backdrop-filter) decorative only; vector
   export strips them.
+- Draw icons and checkmarks as inline SVG, never as characters like `✓`. Chromium falls back to
+  a system font so they look fine in the PNG, but Illustrator renders glyphs the brand font lacks
+  as empty boxes in the `.ai`.
 - Existing example: `templates/amazon-infographic-callouts.html` with `data/water-bottle.json`
   and brand `northpeak` (feature callouts, claim badges, trust bar, photo-or-SVG hero).
 - Platform specs live in `brand-guidelines/general/amazon-listing-images.md` (gallery sizes,

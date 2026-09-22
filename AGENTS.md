@@ -56,6 +56,7 @@ merge, offer to move their customizations into `custom/` so the next update is c
 | Brand colors/logo/fonts/voice, a brand kit PDF, a round avatar from a logo | `tools/brand-kit` | `.claude/skills/brand-kit/SKILL.md` |
 | An ad, Amazon infographic, A+ content, banner, product cutout, variations of an existing `.ai` | `tools/graphic-designer` | `tools/graphic-designer/CLAUDE.md` (house rules + approval gates), then `.claude/skills/graphic-designer/SKILL.md` |
 | Where files should go, a new client or campaign folder | `.claude/skills/client-workspace/SKILL.md` | the skill itself |
+| Anything in Canva: build, repair, hand off, or a `canva.com` link (needs the Canva connector) | `.claude/skills/canva/SKILL.md` | the skill itself |
 
 Not included yet (say so rather than improvising): ad copy generation and client preview PDFs,
 image generation and generative photo expand, Amazon research. If a tool doc mentions
@@ -80,3 +81,15 @@ workflow, and record preferences in `workspace.md`.
 - **Claims and copy** come from the brand's own site, files, or the user. Never invent them.
 - **Ask for source files** (transparent PNGs, vector logos) after one failed cutout instead of iterating.
 - **Credentials:** never type passwords or API keys.
+- **Never commit to the user's clone on your own initiative.** No `git commit`, `git push`,
+  `git checkout --`, `git reset` or `git restore` unless the user asks for that specific action in
+  the moment. This is their working copy; when you add or change files, say which and leave them in
+  the working tree. The one exception is `scripts/update.sh`, which the user runs deliberately and
+  which manages its own commits and backup branch (the commit steps in "Staying up to date" above
+  are part of that user-approved flow).
+- **Design files are not an import path.** A `.ai`, PDF or flat PNG does not become an editable
+  design by uploading it to Canva or anywhere else. If the user wants work edited in a design tool,
+  ask for the link to the design and rebuild or repair it natively there. See the Canva skill.
+- **Never publish the user's local files to a public URL** to get them into a tool that only
+  accepts public links. Ask the user to add the file themselves, or use a source that is already
+  public.

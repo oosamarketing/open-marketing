@@ -29,6 +29,7 @@ New to this? Follow the step-by-step **[tutorial](docs/tutorial.md)**.
 |---|---|
 | [`tools/brand-kit`](tools/brand-kit) | Reads your website and pulls out the logo, the colors actually used, fonts, taglines and tone. You confirm, and it builds a brand kit PDF plus a `brand-assets/` folder (logo files, round avatar, palette, tokens) the design tool reads. |
 | [`tools/graphic-designer`](tools/graphic-designer) | Ads, Amazon gallery infographics and A+ rows as HTML/CSS templates rendered to PNG/JPG at exact platform sizes. Background removal for product photos. On a Mac with Adobe Illustrator it can also export editable `.ai` files with live text and make variations of an existing `.ai` template. |
+| [`.claude/skills/canva`](.claude/skills/canva) | For teams that work in Canva: with the Canva connector attached, the agent builds designs natively in Canva (editable text and shapes), repairs designs you already have there, and knows what Canva's importers can't do. |
 | [`.claude/skills/client-workspace`](.claude/skills/client-workspace) | Keeps client files organized: it works inside the folders you already have, or sets up a clean layout, and remembers your preferences in a `workspace.md`. |
 
 A worked example brand, **Northpeak**, ships with the repo so you can see output before using your own brand:
