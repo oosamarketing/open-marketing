@@ -2,6 +2,16 @@
 
 Newest first. `scripts/update.sh --check` shows the entries you don't have yet.
 
+## 0.1.1 — 2026-09-22
+- New Canva skill: build or repair designs natively through the Canva connector; what its importers can and can't do.
+- Agents no longer commit to your clone on their own; design files are not an import path; never publish your local files to a public URL.
+- Fix: white-on-white cutouts silently produced a fully opaque image when scipy wasn't installed (Pillow floodfill on a read-only image). Now works, and fails loudly if nothing is removed.
+- Fix: brand-kit's tokens now render with the logo (paths resolve against the tool folder); missing images abort with a clear message.
+- Fix: kit PDF pages fit at 8 taglines / 4 products; wording comes from the brand, not a leftover.
+- Fix: extractor fetches the full-size logo and skips theme icons.
+- Templates: draw icons as SVG paths, not characters (they become boxes in `.ai`).
+- `project.py where` no longer creates folders; update.sh explains a missing remote.
+
 ## 0.1.0 — 2026-09-20
 - First public release: brand-kit, graphic-designer, the client-workspace skill, setup and update scripts, tutorial.
 - Example brand Northpeak with an Amazon infographic and Meta ad data in 1:1 and 1.91:1.

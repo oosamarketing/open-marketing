@@ -11,6 +11,14 @@ derivatives of the approved PNG + data file, so making them early only clutters 
 folder with files that get replaced. When the user approves, ask whether they want `.ai` for
 all or for specific ads, then run the same render command with `--out …ai`.
 
+## Editable exports go to Illustrator and Figma, never to Canva
+
+`.ai` is for Illustrator, `--svg` is for Figma. Neither imports into Canva as editable artwork:
+Canva's Illustrator importer turns text into one raster image per letter plus outlined shapes, so
+it comes out doubled, offset and partly black. A client who works in Canva gets the design built
+natively through the Canva connector (hub skill `.claude/skills/canva/SKILL.md`); if they already
+have a design there, ask for the link and work in it.
+
 ## SVG is opt-in, for Figma only
 
 SVG export (`--svg`) exists so a design can be opened in Figma with editable text (Figma can't

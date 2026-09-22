@@ -68,4 +68,4 @@ Brand colors and fonts come from tokens, never hardcoded. One message per graphi
 thumbnail size. Amazon secondary images are 2000x2000 designed at 1000x1000 with 2x scale; the
 main image is white-background product only and is not made here. Vector exports strip
 box-shadows and filters because those rasterize. `out/` is scratch; the export folder is the
-user's copy. If this folder is a git clone the user maintains, commit after adding a template or tool so updates can merge cleanly.
+user's copy. If this folder is a git clone the user maintains, leave new templates and tools uncommitted and tell the user what changed; committing to their working copy is their call, not yours.
