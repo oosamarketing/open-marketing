@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="canvas" content="width={{ size.w }},height={{ size.h }},scale=1">
+<title>Meta ad — simple hero</title>
+<link href="{{ brand.font_url }}" rel="stylesheet">
+<style>
+  /* Two-column rule: copy lives left of the split, product lives right of it, both sit on one floor line.
+     Nothing crosses the split, so the headline and the product never collide. */
+  :root{ --bg1: {{ theme.bg1 }}; --bg2: {{ theme.bg2 }}; --glow: {{ theme.glow }}; --text: {{ theme.text }};
+         --split: {{ size.split }}px; --floor: {{ size.floor }}px; --pad: {{ size.pad }}px; --stage-right: {{ size.stage_right }}px; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"{{ brand.font }}",Arial,sans-serif;background:#ddd}
+  #canvas{position:relative;width:{{ size.w }}px;height:{{ size.h }}px;overflow:hidden;
+    background: radial-gradient(120% 90% at 20% 0%, var(--bg1) 0%, var(--bg2) 70%);}
+  .model{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ model.position }};}
+  /* wash sits only behind the copy (bottom-left); the model's face stays clean */
+  .wash{position:absolute;inset:0;background:radial-gradient(75% 70% at 0% 100%, color-mix(in srgb, var(--bg2) 88%, transparent) 0%, color-mix(in srgb, var(--bg2) 60%, transparent) 38%, transparent 68%);}
+  .frost{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;background:var(--glow);pointer-events:none}
+  .f1{width:60%;height:60%;right:-12%;top:-18%} .f2{width:40%;height:40%;left:-12%;bottom:-16%;opacity:.3}
+  .has-model .frost{opacity:.2}
+  /* keep the two-tone logo legible over a light photo: soft brand color behind the corner */
+  .has-model .logo-wash{position:absolute;inset:0;background:radial-gradient(38% 30% at 0% 0%, color-mix(in srgb, var(--bg2) 85%, transparent) 0%, color-mix(in srgb, var(--bg2) 50%, transparent) 45%, transparent 75%);}
+  .logo{position:absolute;left:var(--pad);top:calc(var(--pad) - 6px);height:{{ size.logo }}px;width:auto}
+  .headline{position:absolute;left:var(--pad);bottom:var(--floor);width:calc(var(--split) - var(--pad));
+    font-family:"{{ brand.headline_font }}",Georgia,serif;font-weight:400;color:var(--text);
+    font-size:{{ size.hl_size }}px;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+  .stage{position:absolute;left:var(--split);right:var(--stage-right);top:var(--pad);bottom:var(--floor);
+    display:flex;align-items:flex-end;justify-content:center}
+  .stage img{max-height:{{ size.p_height }}px;max-width:100%;width:auto;height:auto;
+    filter:drop-shadow(0 30px 40px rgba(30,40,60,.30)) drop-shadow(0 4px 10px rgba(30,40,60,.15));
+    transform:rotate({{ product.rotate }}deg);transform-origin:50% 100%}
+  .contact{position:absolute;left:var(--split);right:var(--stage-right);bottom:calc(var(--floor) - 22px);height:44px;
+    background:radial-gradient(50% 50% at 50% 50%, rgba(30,40,60,.32), transparent 70%);filter:blur(6px)}
+  .halo{position:absolute;left:var(--split);right:var(--stage-right);top:10%;bottom:var(--floor);
+    background:radial-gradient(circle closest-side at 50% 60%, color-mix(in srgb, var(--glow) 65%, white), transparent 72%);opacity:.4}
+</style>
+</head>
+<body>
+<div id="canvas" class="{{ model.cls }}">
+  {% if model.image %}<img class="model" src="{{ model.image }}" alt=""><div class="wash"></div><div class="logo-wash"></div>{% endif %}
+  <div class="frost f1"></div><div class="frost f2"></div>
+  <img class="logo" src="{{ brand.logo }}" alt="">
+  {% if product.image %}<div class="halo"></div><div class="contact"></div><div class="stage"><img src="{{ product.image }}" alt=""></div>{% endif %}
+  <div class="headline">{{ headline }}</div>
+</div>
+</body>
+</html>

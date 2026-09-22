@@ -1,0 +1,38 @@
+{
+  "product": {
+    "name": "Insulated Steel Bottle",
+    "size": "32 oz",
+    "image": "../brand-guidelines/brands/northpeak/assets/water-bottle.png"
+  },
+  "headline": "Ice cold for 24 hours.",
+  "subhead": "Triple-wall vacuum insulation keeps drinks cold all day and hot for 12.",
+  "badge": {
+    "top": "24H",
+    "bottom": "COLD"
+  },
+  "badge2": {
+    "top": "12H",
+    "bottom": "HOT"
+  },
+  "f1": {
+    "title": "Leak-Proof Lid",
+    "text": "Silicone-sealed twist cap. Toss it in any bag."
+  },
+  "f2": {
+    "title": "Triple-Wall Steel",
+    "text": "18/8 food-grade stainless. No metallic taste."
+  },
+  "f3": {
+    "title": "Fits Cup Holders",
+    "text": "Slim 2.9\" base fits standard car holders."
+  },
+  "f4": {
+    "title": "Powder-Coat Grip",
+    "text": "Sweat-free, scratch-resistant finish."
+  },
+  "trust": [
+    "BPA-FREE",
+    "DISHWASHER SAFE",
+    "LIFETIME WARRANTY"
+  ]
+}
