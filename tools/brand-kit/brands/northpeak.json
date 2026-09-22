@@ -1,0 +1,106 @@
+{
+  "slug": "northpeak",
+  "name": "Northpeak",
+  "display_name": "Northpeak",
+  "website": "https://example.com",
+  "tagline": "Ice cold for 24 hours.",
+  "taglines": [
+    "Ice cold for 24 hours.",
+    "Built to be dropped.",
+    "Keeps it cold longer."
+  ],
+  "description": "Fictional outdoor drinkware brand used as the worked example: insulated stainless steel bottles and tumblers.",
+  "voice": {
+    "tone": [
+      "confident",
+      "plain-spoken"
+    ],
+    "style": "Short sentences. No exclamation marks, no puns. Lead with the temperature claim.",
+    "words_use": [
+      "ice cold",
+      "all day",
+      "built",
+      "grip",
+      "leak-proof"
+    ],
+    "words_avoid": [
+      "premium",
+      "luxury",
+      "revolutionary",
+      "best"
+    ]
+  },
+  "colors": [
+    {
+      "hex": "#0F6E6E",
+      "name": "Peak Teal",
+      "role": "primary",
+      "usage": "Backgrounds, icons, badges"
+    },
+    {
+      "hex": "#F5A623",
+      "name": "Summit Amber",
+      "role": "secondary",
+      "usage": "Emphasis: check marks, one number"
+    },
+    {
+      "hex": "#132A2A",
+      "name": "Ink",
+      "role": "text",
+      "usage": "Text on light backgrounds"
+    },
+    {
+      "hex": "#FFFFFF",
+      "name": "Snow",
+      "role": "light",
+      "usage": "Text on teal, page background"
+    },
+    {
+      "hex": "#4A6363",
+      "name": "Slate",
+      "role": "dark accent",
+      "usage": "Secondary text"
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Inter",
+      "role": "display / headlines and body",
+      "source": "Google Fonts",
+      "fallback": "Helvetica Neue, Arial, sans-serif"
+    }
+  ],
+  "logo": {
+    "primary": "assets/northpeak-logo-white.png",
+    "variants": [
+      "assets/northpeak-logo.png"
+    ],
+    "description": "All-caps wordmark with a rounded square mark. White on teal; teal on white.",
+    "clear_space": "Height of the square mark on all sides",
+    "min_width_px": 120,
+    "backgrounds": [
+      "#0F6E6E",
+      "#132A2A"
+    ]
+  },
+  "products": [
+    {
+      "name": "Insulated Steel Bottle 32 oz",
+      "line_color": "#0F6E6E",
+      "hero_claim": "Ice cold for 24 hours.",
+      "facts": [
+        "Triple-wall vacuum insulation",
+        "18/8 stainless, BPA-free",
+        "Leak-proof lid, fits cup holders",
+        "Dishwasher safe, lifetime warranty"
+      ]
+    }
+  ],
+  "sources": {
+    "extracted_from": "https://example.com",
+    "extracted_at": "2026-09-20",
+    "extraction_notes": "Fictional example brand; nothing was extracted.",
+    "confirmed_by": "example",
+    "confirmed_at": "2026-09-20"
+  }
+}

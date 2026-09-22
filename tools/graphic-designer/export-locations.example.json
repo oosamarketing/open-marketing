@@ -1,0 +1,11 @@
+{
+  "_comment": "LOCAL ONLY. Deliverables and user-supplied assets are saved on this computer, never on a server. Paths may use ~.",
+  "default_root": "~/Downloads",
+  "folder_pattern": "{brand} Infographics",
+  "assets_subdir": "assets",
+  "brands": {
+    "example-brand": {
+      "export_dir": "~/Desktop/Clients/Example Brand/Ads"
+    }
+  }
+}

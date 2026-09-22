@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="canvas" content="width=1000,height=1000,scale=2">
+<title>Amazon Infographic — Feature Callouts</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand: {{ brand.color }};
+    --accent: {{ brand.accent }};
+    --ink:#132A2A; --muted:#4A6363; --paper:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#e9ecef}
+  body{font-family:Inter,"Helvetica Neue",Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+  #canvas{
+    position:relative;width:1000px;height:1000px;overflow:hidden;
+    background:
+      radial-gradient(900px 700px at 50% 60%, #FFFFFF 0%, #F1F6F6 55%, #E2ECEC 100%);
+  }
+  /* soft brand wash behind the product */
+  .halo{position:absolute;left:290px;top:190px;width:420px;height:620px;border-radius:50%;
+    background:radial-gradient(closest-side, color-mix(in srgb, var(--brand) 18%, white), transparent 72%);}
+  .brand{position:absolute;left:56px;top:48px;font-weight:900;letter-spacing:.22em;font-size:20px;color:var(--brand)}
+  .brand::before{content:"";display:inline-block;width:14px;height:14px;border-radius:3px;background:var(--brand);margin-right:12px;vertical-align:-1px}
+  h1{position:absolute;left:56px;top:92px;width:560px;font-size:64px;line-height:1.02;font-weight:900;letter-spacing:-.025em}
+  .sub{position:absolute;left:56px;top:238px;width:420px;font-size:22px;line-height:1.35;font-weight:500;color:var(--muted)}
+
+  /* badges */
+  .badge{position:absolute;width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;color:#fff;font-weight:900;line-height:.95;
+    box-shadow:0 14px 34px rgba(15,110,110,.28)}
+  .badge b{font-size:46px;letter-spacing:-.03em}.badge span{font-size:18px;letter-spacing:.2em;margin-top:6px}
+  .badge.cold{right:70px;top:60px;background:linear-gradient(160deg,var(--brand),#0A4F4F)}
+  .badge.hot{right:38px;top:190px;width:118px;height:118px;background:linear-gradient(160deg,#F5A623,#E0731F);box-shadow:0 12px 28px rgba(224,115,31,.3)}
+  .badge.hot b{font-size:36px}.badge.hot span{font-size:15px}
+
+  /* callouts */
+  .callout{position:absolute;width:290px}
+  .callout .t{display:flex;align-items:center;gap:12px;font-size:24px;font-weight:800;letter-spacing:-.01em}
+  .callout .t .ic{flex:0 0 46px;width:46px;height:46px;border-radius:12px;background:var(--brand);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(15,110,110,.25)}
+  .callout .t .ic svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  .callout p{margin-top:8px;font-size:18px;line-height:1.35;color:var(--muted);font-weight:500}
+  .callout.right{text-align:right}.callout.right .t{flex-direction:row-reverse}
+  /* leader lines */
+  .lead{position:absolute;height:3px;background:var(--brand);opacity:.55}
+  .lead::after{content:"";position:absolute;right:-6px;top:-5px;width:13px;height:13px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 0 0 2px var(--brand)}
+  .lead.flip::after{right:auto;left:-6px}
+
+  /* product: real photo (transparent PNG) when product.image is set, else SVG placeholder */
+  .product{position:absolute;left:378px;top:250px;width:244px;height:580px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.22))}
+  .product-photo{position:absolute;left:300px;top:225px;width:400px;height:620px;object-fit:contain;object-position:center bottom;
+    filter:drop-shadow(0 30px 40px rgba(0,0,0,.22))}
+
+  /* trust bar */
+  .trust{position:absolute;left:56px;right:56px;bottom:52px;height:74px;border-radius:18px;background:var(--ink);
+    display:flex;align-items:center;justify-content:space-around;color:#fff;font-weight:800;font-size:19px;letter-spacing:.14em}
+  .trust div{display:flex;align-items:center;gap:12px}
+  .trust svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  .size{position:absolute;right:56px;bottom:146px;font-size:16px;font-weight:700;letter-spacing:.18em;color:var(--muted)}
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="halo"></div>
+  <div class="brand">{{ brand.name }}</div>
+  <h1>{{ headline }}</h1>
+  <p class="sub">{{ subhead }}</p>
+
+  <div class="badge cold"><b>{{ badge.top }}</b><span>{{ badge.bottom }}</span></div>
+  <div class="badge hot"><b>{{ badge2.top }}</b><span>{{ badge2.bottom }}</span></div>
+
+  <!-- product bottle -->
+  {% if product.image %}
+  <img class="product-photo" src="{{ product.image }}" alt="">
+  {% else %}
+  <svg class="product" viewBox="0 0 244 580" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="steel" x1="0" x2="1">
+        <stop offset="0" stop-color="#0B5C5C"/><stop offset=".18" stop-color="#1A8A8A"/>
+        <stop offset=".45" stop-color="#22A3A3"/><stop offset=".62" stop-color="#157777"/>
+        <stop offset="1" stop-color="#083F3F"/>
+      </linearGradient>
+      <linearGradient id="cap" x1="0" x2="1">
+        <stop offset="0" stop-color="#1D2A2A"/><stop offset=".35" stop-color="#4B5C5C"/>
+        <stop offset=".7" stop-color="#2A3838"/><stop offset="1" stop-color="#141C1C"/>
+      </linearGradient>
+      <linearGradient id="gloss" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    </defs>
+    <!-- cap -->
+    <rect x="70" y="0" width="104" height="52" rx="14" fill="url(#cap)"/>
+    <rect x="86" y="8" width="72" height="8" rx="4" fill="#0f1616" opacity=".6"/>
+    <path d="M60 52 h124 v26 a10 10 0 0 1 -10 10 h-104 a10 10 0 0 1 -10 -10 z" fill="#0F1A1A"/>
+    <!-- neck / shoulder -->
+    <path d="M60 88 h124 c0 34 60 30 60 96 v340 a56 56 0 0 1 -56 56 h-132 a56 56 0 0 1 -56 -56 v-340 c0 -66 60 -62 60 -96 z" fill="url(#steel)"/>
+    <!-- gloss stripe -->
+    <rect x="52" y="120" width="34" height="420" rx="17" fill="url(#gloss)"/>
+    <!-- label mark -->
+    <g transform="translate(122 330)">
+      <circle r="44" fill="#fff" opacity=".12"/>
+      <text text-anchor="middle" y="9" font-family="Inter, Arial" font-weight="900" font-size="26" fill="#fff" letter-spacing="2">{{ product.size }}</text>
+    </g>
+    <text x="122" y="470" text-anchor="middle" font-family="Inter, Arial" font-weight="800" font-size="13" fill="#fff" opacity=".85" letter-spacing="4">{{ brand.name }}</text>
+  </svg>
+  {% endif %}
+
+  <!-- callouts: left -->
+  <div class="callout" style="left:56px;top:400px">
+    <div class="t"><span class="ic"><svg viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="4" y="10" width="16" height="11" rx="2"/></svg></span>{{ f1.title }}</div>
+    <p>{{ f1.text }}</p>
+  </div>
+  <div class="lead" style="left:352px;top:418px;width:60px"></div>
+
+  <div class="callout" style="left:56px;top:640px">
+    <div class="t"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/></svg></span>{{ f2.title }}</div>
+    <p>{{ f2.text }}</p>
+  </div>
+  <div class="lead" style="left:352px;top:658px;width:48px"></div>
+
+  <!-- callouts: right -->
+  <div class="callout right" style="right:56px;top:400px">
+    <div class="t"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l3-7h8l3 7"/><rect x="3" y="12" width="18" height="6" rx="2"/><path d="M7 18v2M17 18v2"/></svg></span>{{ f3.title }}</div>
+    <p>{{ f3.text }}</p>
+  </div>
+  <div class="lead flip" style="left:592px;top:418px;width:60px"></div>
+
+  <div class="callout right" style="right:56px;top:640px">
+    <div class="t"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 20V9M12 20V4M18 20v-9"/><path d="M3 20h18"/></svg></span>{{ f4.title }}</div>
+    <p>{{ f4.text }}</p>
+  </div>
+  <div class="lead flip" style="left:600px;top:658px;width:48px"></div>
+
+  <div class="size">{{ product.name }} · {{ product.size }}</div>
+
+  <div class="trust">
+    <div><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>{{ trust.0 }}</div>
+    <div><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>{{ trust.1 }}</div>
+    <div><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>{{ trust.2 }}</div>
+  </div>
+</div>
+</body>
+</html>

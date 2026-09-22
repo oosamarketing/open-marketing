@@ -1,0 +1,30 @@
+{
+ "headline": "Ice cold for 24 hours.",
+ "product": {
+  "image": "../brand-guidelines/brands/northpeak/assets/water-bottle.png",
+  "rotate": -4
+ },
+ "model": {
+  "image": "",
+  "position": "center",
+  "cls": ""
+ },
+ "theme": {
+  "bg1": "#2a9d9d",
+  "bg2": "#0F6E6E",
+  "glow": "#d9f5f5",
+  "text": "#ffffff",
+  "cls": ""
+ },
+ "size": {
+  "w": 1200,
+  "h": 628,
+  "pad": 48,
+  "logo": 36,
+  "split": 600,
+  "floor": 56,
+  "hl_size": 64,
+  "p_height": 520,
+  "stage_right": 160
+ }
+}

@@ -1,0 +1,14 @@
+.venv/
+.last_update_check
+__pycache__/
+.DS_Store
+out/
+work/
+dist/
+# your own brands stay local
+tools/graphic-designer/brand-guidelines/brands/*/
+!tools/graphic-designer/brand-guidelines/brands/_template/
+!tools/graphic-designer/brand-guidelines/brands/northpeak/
+tools/graphic-designer/export-locations.json
+tools/brand-kit/brands/*.json
+!tools/brand-kit/brands/northpeak.json
