@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="canvas" content="width=600,height=380,scale=2">
+<title>Email hero graphic (600 wide, rendered 2x)</title>
+<link href="{{ brand.font_url }}" rel="stylesheet">
+<style>
+  /* A graphic section: use when the headline needs the brand font, a product cutout over color,
+     or effects that live HTML can't do in email. Keep copy short; long copy belongs in a text section. */
+  :root{--brand:{{ brand.color }};--accent:{{ brand.accent }};--paper:{{ brand.paper }}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"{{ brand.font }}",Arial,sans-serif;background:#ddd}
+  #canvas{position:relative;width:600px;height:380px;overflow:hidden;background:radial-gradient(120% 120% at 15% 0%,color-mix(in srgb,var(--brand) 78%,white) 0%,var(--brand) 70%)}
+  .glow{position:absolute;right:-60px;top:-40px;width:380px;height:380px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.35),transparent 70%)}
+  .eyebrow{position:absolute;left:36px;top:70px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+  h1{position:absolute;left:36px;top:96px;width:320px;font-family:"{{ brand.headline_font }}","{{ brand.font }}",Arial,sans-serif;font-size:44px;line-height:1.04;font-weight:900;color:#fff;letter-spacing:-.02em}
+  .sub{position:absolute;left:36px;bottom:64px;width:300px;font-size:16px;line-height:1.4;color:rgba(255,255,255,.9);font-weight:500}
+  .product{position:absolute;right:48px;bottom:24px;height:320px;width:auto;filter:drop-shadow(0 22px 26px rgba(0,0,0,.28))}
+  .contact{position:absolute;right:40px;bottom:12px;width:200px;height:26px;border-radius:50%;background:rgba(0,0,0,.28);filter:blur(7px)}
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="glow"></div>
+  {% if eyebrow %}<div class="eyebrow">{{ eyebrow }}</div>{% endif %}
+  <h1>{{ headline }}</h1>
+  {% if sub %}<div class="sub">{{ sub }}</div>{% endif %}
+  {% if product.image %}<div class="contact"></div><img class="product" src="{{ product.image }}" alt="">{% endif %}
+</div>
+</body>
+</html>
