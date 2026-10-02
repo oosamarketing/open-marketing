@@ -2,6 +2,12 @@
 
 Newest first. `scripts/update.sh --check` shows the entries you don't have yet.
 
+## 0.2.1 — 2026-10-02
+- Email: `build/handoff.md` assembly guide: image rows map to the editor's native image blocks (file, link, alt), live rows to custom HTML blocks with the snippet inline; `"editor": "preset"` marks footer/social/button sections the editor already provides.
+- Email: specs can be self-contained (`brand_tokens` next to the spec), so a client folder rebuilds anywhere.
+- Email: every build reports total download weight (HTML + images) against benchmarks, recompresses images with the new `compress.py` (quality ladder against a pixel-error threshold), and offers `--profile light` for lighter emails.
+- Email: buttons are ALL CAPS with tracking by default.
+
 ## 0.2.0 — 2026-10-02
 - New: email designer (`tools/graphic-designer/emails/`, skill `email-designer`). Builds marketing emails as stackable sections: each one a single `<div>` with inline CSS (never html/head/body/style), so it pastes into any ESP's HTML block. Section types for header, hero graphic, offer with code chip, text, columns that stack on phones, us-vs-them comparison rows, image tiles, quotes, footer. Writes `email.html`, an `email-lite.html` under Gmail's ~102 KB clip limit when needed, images to host, desktop and mobile previews, and a size/lint report.
 - New: review cards that look verified: real reviews checked against the review platform's public feed, the platform's own logo and font, a link to the client's page.

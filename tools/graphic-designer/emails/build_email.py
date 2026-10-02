@@ -7,6 +7,7 @@ build_email.py — Build an email as stackable HTML snippets from a JSON spec.
     $PY emails/build_email.py spec.json --base-url https://cdn.example.com/email/2026-10/   # hosted image URLs
     $PY emails/build_email.py spec.json --lite               # always write email-lite.html (≤ 102 KB)
     $PY emails/build_email.py spec.json --no-preview         # skip screenshots
+    $PY emails/build_email.py spec.json --profile light      # smaller images (~400 KB budget) vs rich (default)
 
 What comes out (in the spec's "out" folder, or --out):
     sections/NN-type.html   one snippet per section: a single <div>…</div>, inline CSS, no html/head/body
@@ -16,10 +17,13 @@ What comes out (in the spec's "out" folder, or --out):
     images/                 every image the email needs (resized to 2x the email width); host these
     previews/               desktop.png, mobile.png and _preview.html (a wrapper for looking only, never delivered)
     report.md               bytes per section, total vs the 102 KB limit, lint results, images to host
+    handoff.md              assembly guide for a human in the ESP editor: image rows → native image blocks
+                            (which file, link, alt), everything else → custom HTML block with the snippet inline
 
 Spec (paths are relative to the spec file):
 {
-  "brand": "northpeak",                     // brand-guidelines/brands/<slug>/tokens.json
+  "brand": "northpeak",                     // brand-guidelines/brands/<slug>/tokens.json, OR
+  "brand_tokens": "../branding/brand-assets/tokens.json",   // a tokens file next to the spec (portable folders)
   "out": "out/email/launch",
   "theme": {"width": 600, "headline_fallback": "serif", "btn_bg": "#0F6E6E"},
   "base_url": "",                           // or pass --base-url later, once images are hosted
@@ -31,6 +35,8 @@ Spec (paths are relative to the spec file):
     {"type": "footer", "lines": ["Northpeak · 123 Trail Rd", "{% unsubscribe %}"]}
   ]
 }
+Any section may carry "editor": "preset" to say the ESP's built-in block (footer, social icons, button)
+  should be used instead of the snippet; the handoff guide then lists it that way.
 Section types: header, image, graphic, hero_text, text, button, columns, quote, divider, spacer, footer, raw,
   offer (copy + code chip + button), compare (us-vs-them rows), tiles (fixed 2-up image grid), social (text links).
 """
@@ -111,11 +117,20 @@ def shoot(page, html_path: Path, locator: str, out: Path, quality: int = 82):
 
 
 # ------------------------------------------------------------------ build
-def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: bool, preview: bool) -> dict:
+def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: bool, preview: bool, profile: str | None = None) -> dict:
     spec = json.loads(spec_path.read_text()); base = spec_path.resolve().parent
+    profile = profile or spec.get("profile") or "rich"
     out = (out or (base / spec.get("out", "out/email"))).resolve(); images = out / "images"; (out / "sections").mkdir(parents=True, exist_ok=True)
     tokens = {}
-    if spec.get("brand"):
+    if spec.get("brand_tokens"):                       # self-contained specs: tokens file next to the spec
+        tf = (base / spec["brand_tokens"]).resolve()
+        if not tf.exists(): raise SystemExit(f"brand_tokens not found: {tf}")
+        tokens = json.loads(tf.read_text())
+        for k in ("logo", "logo_dark", "avatar", "elements"):   # relative paths in a tokens file resolve against it
+            v = tokens.get(k)
+            if isinstance(v, str) and v and not v.startswith(("http://", "https://")) and not Path(v).is_absolute():
+                tokens[k] = str((tf.parent / v).resolve())
+    elif spec.get("brand"):
         tf = ROOT / "brand-guidelines" / "brands" / spec["brand"] / "tokens.json"
         if not tf.exists(): raise SystemExit(f"no brand '{spec['brand']}': expected {tf}")
         tokens = json.loads(tf.read_text())
@@ -132,6 +147,8 @@ def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: b
             missing: list = []; R.resolve_paths(data, base, missing)
             if tokens: data["brand"] = {**tokens, **data.get("brand", {})}
             data.setdefault("email", {"width": t.width})
+            # data strings may themselves use {{ brand.* }} (e.g. an <img> inside a headline): expand them first
+            data = json.loads(R.fill(json.dumps(data), data))
             images.mkdir(parents=True, exist_ok=True); dest = images / f"{i:02d}-{name}.jpg"
             tpl = Path(sec["template"]); tpl = tpl if tpl.is_absolute() else (base / tpl)
             R.render(tpl, dest, data, width=sec.get("width", t.width), height=sec.get("height"), scale=2, quality=sec.get("quality", 84))
@@ -203,25 +220,81 @@ def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: b
             pg.screenshot(path=str(prev / f"{label}.png"), full_page=True); pg.close()
     if browser: browser.close(); pw.stop()
 
+    # ---- compress images (rich: invisible loss; light: smaller and softer) and measure weight
+    import compress as C
+    prof = C.PROFILES[profile]; img_log = []
+    for f in sorted(images.glob("*")):
+        if f.suffix.lower() not in (".jpg", ".jpeg", ".png"): continue
+        before, after, how = C.compress_image(f, f, prof["max_width"], prof["max_error"], prof["min_q"])
+        newf = f.with_suffix(".jpg") if how.startswith("jpeg") else f.with_suffix(".png")
+        if newf.name != f.name:   # extension changed: fix every snippet that references it
+            built = [(n, ty, sn.replace(f"images/{f.name}", f"images/{newf.name}")) for n, ty, sn in built]
+            lite_built = [(n, ty, sn.replace(f"images/{f.name}", f"images/{newf.name}")) for n, ty, sn in lite_built]
+        with Image.open(newf) as im: img_log.append((newf.name, im.size, after, before, how))
+    for name, typ, snip in built: (out / "sections" / f"{name}.html").write_text(final(snip) + "\n", encoding="utf-8")
+    email = "\n".join(final(s) for _, _, s in built); (out / "email.html").write_text(email + "\n", encoding="utf-8"); size = len(email.encode("utf-8"))
+    if (out / "email-lite.html").exists():
+        lite = "\n".join(final(s) for _, _, s in lite_built); (out / "email-lite.html").write_text(lite + "\n", encoding="utf-8")
+    used = set(re.findall(r'images/([^"\s]+)', email)); img_total = sum(b for n, _, b, _, _ in img_log if n in used)
+    weight = size + img_total
+
+    # ---- handoff guide: which sections are native editor blocks (images) and which are custom HTML
+    NATIVE = {"image", "header", "tiles", "spacer", "divider"}
+    guide = [f"# Assembling this email in your editor", "",
+             "Work top to bottom. **Image** rows: use the editor's own image / multi-image block and drop in the file from `images/`",
+             "(set the link and alt text shown). **Custom HTML** rows: add a custom HTML / code block and paste the snippet",
+             "(each is one `<div>` with inline CSS; no `<html>`/`<body>`). Image URLs inside snippets point at `images/…`",
+             "until you rebuild with `--base-url` or replace them with the editor's hosted URLs.", ""]
+    for (name, typ, snip), sec in zip(built, spec["sections"]):
+        imgs = re.findall(r'<img src="([^"]+)"[^>]*alt="([^"]*)"', final(snip)); links = re.findall(r'href="([^"]+)"', final(snip))
+        all_images = typ in NATIVE or (typ == "columns" and sec.get("items") and all(it.get("image") and not (it.get("title") or it.get("text")) for it in sec["items"]))
+        if all_images and imgs:
+            n = len(imgs); block = {1: "Image block", 2: "2-image row", 3: "3-image row", 4: "2x2 image grid (or two 2-image rows)"}.get(n, f"{n}-image layout")
+            guide.append(f"## {name} — {block} (editor block)")
+            for (src, alt), href in zip(imgs, links + [None] * n):
+                guide.append(f"- `{src.split('/')[-1]}`" + (f" → link `{href}`" if href else "") + (f" · alt: {alt}" if alt else ""))
+            if typ == "header": guide.append("- Center it; keep the logo about " + str(sec.get("logo_width", 160)) + " px wide.")
+        elif sec.get("editor") == "preset":
+            guide.append(f"## {name} — use the editor's built-in {typ} block")
+            hint = {"footer": "address + unsubscribe come from the editor; match the colors in the snippet",
+                    "social": "editor's social-icons block with these links",
+                    "button": "editor's button block: ALL CAPS label, blue #0B73CB, white text, rounded 6 px"}.get(typ, "")
+            if hint: guide.append(f"- {hint}")
+            for href in links: guide.append(f"- link: `{href}`")
+            guide.append(f"- (custom-HTML fallback: `sections/{name}.html`)")
+        elif typ in ("spacer", "divider"):
+            guide.append(f"## {name} — {typ} (editor block or skip)")
+        else:
+            guide.append(f"## {name} — Custom HTML block (paste `sections/{name}.html`)")
+            guide.append("```html"); guide.append(final(snip)); guide.append("```")
+        guide.append("")
+    (out / "handoff.md").write_text("\n".join(guide) + "\n", encoding="utf-8")
+
     # ---- report
     kb = lambda b: f"{b / 1024:.1f} KB"
     L = [f"# Email build report — {spec_path.name}", "", f"- Sections: {len(built)}", f"- **email.html: {kb(size)}** ({size / GMAIL_CLIP:.0%} of Gmail's 102 KB clip limit; build target {kb(TARGET)})"]
     if lite_info: L.append(f"- **email-lite.html: {kb(lite_info['bytes'])}**" + (f" — rasterized to images: {', '.join(lite_info['rasterized'])}" if lite_info["rasterized"] else " — minified only"))
     L += [f"- Image URLs: {'hosted at ' + base_url if base_url else 'RELATIVE (`images/…`). Upload the images folder, then rebuild with --base-url <folder URL>'}", "",
           "| Section | Type | Size |", "|---|---|---|"] + [f"| {n} | {ty} | {kb(b)} |" for n, ty, b in sizes]
-    L += ["", "## Images to host", "| File | Pixels | Size |", "|---|---|---|"] + [f"| {n} | {w}x{h} | {kb(b)} |" for n, (w, h), b in dict((x[0], x) for x in img_log).values()]
+    verdict = ("lightweight" if weight < 500 * 1024 else "typical marketing email" if weight < 1200 * 1024 else "heavy: expect a visible wait on mobile data and more image-off views" if weight < 2500 * 1024 else "very heavy: trim images or go light")
+    L += ["", "## Weight", f"- **Total download: {kb(weight)}** = HTML {kb(size)} + images {kb(img_total)} ({len(used)} images actually used). Profile: **{profile}**.",
+          f"- Verdict: {verdict}. Benchmarks: a plain-text email is ~10 KB; a typical marketing email with 4–8 images is 500 KB–1.2 MB; over ~2 MB loads noticeably slowly on mobile and some clients stop fetching images.",
+          f"- HTML vs Gmail's 102 KB clip: {size / GMAIL_CLIP:.0%}. Images never count toward the clip; they only affect load time.",
+          f"- Images were recompressed with `compress.py` ({'invisible loss' if profile == 'rich' else 'light: smaller, slightly softer'}): {kb(sum(b for *_, b, _ in [(n,s_,a,b,h) for n,s_,a,b,h in img_log]))} → {kb(sum(a for _, _, a, _, _ in img_log))}. Rebuild with `--profile light` for a lighter email or `--profile rich` for best quality."]
+    L += ["", "## Images to host", "| File | Pixels | Size | Before | How |", "|---|---|---|---|---|"] + [f"| {n} | {w}x{h} | {kb(a)} | {kb(b)} | {how} |" for n, (w, h), a, b, how in img_log]
     L += ["", "## Lint"] + ([f"- **{n}**: " + "; ".join(v) for n, v in issues.items()] or ["- clean: every section is a single `<div>` with inline CSS, no html/head/body/style/script"])
     (out / "report.md").write_text("\n".join(L) + "\n", encoding="utf-8")
     errors = [i for v in issues.values() for i in v if i.startswith("ERROR")]
-    return {"out": str(out), "bytes": size, "lite": lite_info, "sections": len(built), "errors": errors, "warnings": sum(len(v) for v in issues.values()) - len(errors)}
+    return {"out": str(out), "bytes": size, "images_bytes": img_total, "weight_bytes": weight, "profile": profile, "lite": lite_info, "sections": len(built), "errors": errors, "warnings": sum(len(v) for v in issues.values()) - len(errors)}
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("spec", type=Path); ap.add_argument("--out", type=Path); ap.add_argument("--base-url")
     ap.add_argument("--lite", action="store_true"); ap.add_argument("--no-preview", action="store_true")
+    ap.add_argument("--profile", choices=("rich", "light"), help="image weight: rich (default, ~1 MB budget) or light (~400 KB, smaller/softer images)")
     a = ap.parse_args(argv)
-    r = build(a.spec, a.out, a.base_url, a.lite, not a.no_preview)
+    r = build(a.spec, a.out, a.base_url, a.lite, not a.no_preview, a.profile)
     print(json.dumps(r, indent=2))
     return 1 if r["errors"] else 0
 
