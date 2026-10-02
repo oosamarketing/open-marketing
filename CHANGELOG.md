@@ -2,6 +2,10 @@
 
 Newest first. `scripts/update.sh --check` shows the entries you don't have yet.
 
+## 0.2.3 — 2026-10-02
+- Email handoff shows a picture of every section next to its instructions and snippet (`handoff.md` with embedded images, plus `handoff.html` to open in a browser); the skill presents handoffs the same way in chat.
+- `docs/teammate-prompt.md`: a plain-language starter prompt for someone receiving a client folder and starting from an empty folder.
+
 ## 0.2.2 — 2026-10-02
 - First run: the agent handles prerequisites itself (Python 3.11+, the Chromium download, brand fonts: Google fonts are installed, licensed ones are requested) instead of sending the user to do it.
 - Handed-over client folders: read their `HANDOFF.md` first, rebuild from the self-contained spec in place, compare with the included previews, add alongside, never reorganize.

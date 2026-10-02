@@ -31,7 +31,8 @@ kit and `brand-assets/`, and work folders like `email/<campaign>/` or `ads/`. Lo
 user is expected to do with it, and what is still open with the client. Specs in such folders are
 self-contained (`brand_tokens` points at `branding/brand-assets/tokens.json`), so rebuild from
 them in place and compare against the previews that came with the folder before changing anything.
-Don't move or rename what was handed over; add alongside it.
+Don't move or rename what was handed over; add alongside it. When *you* prepare a folder for
+someone else, give them `docs/teammate-prompt.md` with it.
 
 ## Staying up to date
 
