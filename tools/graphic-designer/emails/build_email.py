@@ -17,8 +17,9 @@ What comes out (in the spec's "out" folder, or --out):
     images/                 every image the email needs (resized to 2x the email width); host these
     previews/               desktop.png, mobile.png and _preview.html (a wrapper for looking only, never delivered)
     report.md               bytes per section, total vs the 102 KB limit, lint results, images to host
-    handoff.md              assembly guide for a human in the ESP editor: image rows → native image blocks
-                            (which file, link, alt), everything else → custom HTML block with the snippet inline
+    handoff.md / .html      assembly guide for a human in the ESP editor, one row per section WITH a picture of
+                            that section: image rows → native image blocks (which file, link, alt), everything
+                            else → custom HTML block with the snippet inline. previews/sections/ holds the pictures
 
 Spec (paths are relative to the spec file):
 {
@@ -217,7 +218,13 @@ def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: b
         for label, w in (("desktop", 700), ("mobile", 390)):
             pg = browser.new_page(viewport={"width": w, "height": 900}, device_scale_factor=2 if label == "mobile" else 1.5)
             pg.goto((prev / "_preview.html").resolve().as_uri(), wait_until="load"); pg.wait_for_timeout(300)
-            pg.screenshot(path=str(prev / f"{label}.png"), full_page=True); pg.close()
+            pg.screenshot(path=str(prev / f"{label}.png"), full_page=True)
+            if label == "desktop":   # one picture per section, so a handoff can show what each row is
+                (prev / "sections").mkdir(exist_ok=True)
+                for i, (name, _, _) in enumerate(built, start=1):
+                    try: pg.locator(f"body > div:nth-child({i})").screenshot(path=str(prev / "sections" / f"{name}.png"))
+                    except Exception: pass
+            pg.close()
     if browser: browser.close(); pw.stop()
 
     # ---- compress images (rich: invisible loss; light: smaller and softer) and measure weight
@@ -245,8 +252,11 @@ def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: b
              "(set the link and alt text shown). **Custom HTML** rows: add a custom HTML / code block and paste the snippet",
              "(each is one `<div>` with inline CSS; no `<html>`/`<body>`). Image URLs inside snippets point at `images/…`",
              "until you rebuild with `--base-url` or replace them with the editor's hosted URLs.", ""]
+    html_rows = []
     for (name, typ, snip), sec in zip(built, spec["sections"]):
         imgs = re.findall(r'<img src="([^"]+)"[^>]*alt="([^"]*)"', final(snip)); links = re.findall(r'href="([^"]+)"', final(snip))
+        shot = out / "previews" / "sections" / f"{name}.png"
+        start = len(guide)
         all_images = typ in NATIVE or (typ == "columns" and sec.get("items") and all(it.get("image") and not (it.get("title") or it.get("text")) for it in sec["items"]))
         if all_images and imgs:
             n = len(imgs); block = {1: "Image block", 2: "2-image row", 3: "3-image row", 4: "2x2 image grid (or two 2-image rows)"}.get(n, f"{n}-image layout")
@@ -267,8 +277,28 @@ def build(spec_path: Path, out: Path | None, base_url: str | None, force_lite: b
         else:
             guide.append(f"## {name} — Custom HTML block (paste `sections/{name}.html`)")
             guide.append("```html"); guide.append(final(snip)); guide.append("```")
-        guide.append("")
+        if shot.exists():   # picture right under the heading so the reader sees what the row is
+            guide.insert(start + 1, f"![{name}](previews/sections/{name}.png)")
+        body = "\n".join(guide[start + 1:]); guide.append("")
+        html_rows.append((name, guide[start], body))
     (out / "handoff.md").write_text("\n".join(guide) + "\n", encoding="utf-8")
+    # handoff.html: the same guide as a page (section picture, instructions, copy-ready snippet)
+    def md_html(txt: str) -> str:
+        parts = []; code = False
+        for ln in txt.split("\n"):
+            if ln.startswith("```"):
+                parts.append("<pre><code>" if not code else "</code></pre>"); code = not code; continue
+            if code: parts.append(ln.replace("&", "&amp;").replace("<", "&lt;") + "\n"); continue
+            m = re.match(r"!\[[^\]]*\]\(([^)]+)\)", ln)
+            if m: parts.append(f'<img src="{m.group(1)}" style="display:block;max-width:600px;width:100%;border:1px solid #ddd;margin:8px 0 14px;">'); continue
+            if ln.startswith("- "): parts.append("<li>" + re.sub(r"`([^`]+)`", r"<code>\1</code>", ln[2:]) + "</li>"); continue
+            if ln.strip(): parts.append("<p>" + re.sub(r"`([^`]+)`", r"<code>\1</code>", ln) + "</p>")
+        return "".join(parts)
+    page = ['<!doctype html><meta charset="utf-8"><title>Email handoff</title><style>body{font:15px/1.5 -apple-system,Helvetica,Arial,sans-serif;max-width:860px;margin:30px auto;padding:0 20px;color:#222}h2{margin-top:40px;border-top:1px solid #e5e5e5;padding-top:24px}pre{background:#f4f4f4;padding:12px;overflow:auto;font-size:12px;border-radius:6px;white-space:pre-wrap;word-break:break-all}code{font-size:13px}li{margin:2px 0}</style>',
+            f"<h1>Assembling this email</h1>" + md_html("\n".join(guide[:guide.index("")]) if "" in guide else "")]
+    for name, head, body in html_rows:
+        page.append(f"<h2>{head.lstrip('# ')}</h2>" + md_html(body))
+    (out / "handoff.html").write_text("".join(page), encoding="utf-8")
 
     # ---- report
     kb = lambda b: f"{b / 1024:.1f} KB"

@@ -120,6 +120,13 @@ the editor can't do well: an offer block with a code chip, comparison rows, styl
 bullets, anything with layout. One short question covers it: "Which of these does your editor
 already have as a block: footer, social icons, buttons?"
 
+**Show the picture of each section with its instructions.** The person assembling the email
+may not read HTML. Go through the whole email in order, and for every section show its image
+(`build/previews/sections/<name>.png`, which the builder makes) followed by what to do: the native
+block to use with file/link/alt, or the custom-HTML snippet in a code block. Never post a wall of
+snippets without the pictures. `build/handoff.html` is the same guide as a page they can open in a
+browser; point them to it as well.
+
 Lead the handoff with the section order so the two kinds interleave correctly. When the user is
 assembling by hand, a `--base-url` rebuild is optional: they can also paste the editor's own
 hosted URLs into the snippet.
