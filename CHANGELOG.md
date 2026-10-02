@@ -2,6 +2,11 @@
 
 Newest first. `scripts/update.sh --check` shows the entries you don't have yet.
 
+## 0.2.0 — 2026-10-02
+- New: email designer (`tools/graphic-designer/emails/`, skill `email-designer`). Builds marketing emails as stackable sections: each one a single `<div>` with inline CSS (never html/head/body/style), so it pastes into any ESP's HTML block. Section types for header, hero graphic, offer with code chip, text, columns that stack on phones, us-vs-them comparison rows, image tiles, quotes, footer. Writes `email.html`, an `email-lite.html` under Gmail's ~102 KB clip limit when needed, images to host, desktop and mobile previews, and a size/lint report.
+- New: review cards that look verified: real reviews checked against the review platform's public feed, the platform's own logo and font, a link to the client's page.
+- Buttons are ALL CAPS with tracking by default; brand elements in graphics are opt-in per template.
+
 ## 0.1.1 — 2026-09-22
 - New Canva skill: build or repair designs natively through the Canva connector; what its importers can and can't do.
 - Agents no longer commit to your clone on their own; design files are not an import path; never publish your local files to a public URL.

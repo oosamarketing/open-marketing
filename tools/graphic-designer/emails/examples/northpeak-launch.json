@@ -1,0 +1,19 @@
+{
+  "brand": "northpeak",
+  "out": "../../out/email/northpeak-launch",
+  "theme": {"width": 600, "headline_fallback": "sans"},
+  "sections": [
+    {"type": "header", "logo": "../../brand-guidelines/brands/northpeak/assets/logo.png", "alt": "Northpeak", "href": "https://example.com", "logo_width": 170},
+    {"type": "graphic", "name": "hero", "template": "../../templates/email-hero.html", "alt": "Ice cold for 24 hours. The Northpeak insulated steel bottle.", "href": "https://example.com/bottle",
+     "data": {"eyebrow": "New this week", "headline": "Ice cold for 24 hours.", "sub": "Triple-wall steel. Leak-proof lid.", "product": {"image": "../../brand-guidelines/brands/northpeak/assets/water-bottle.png"}}},
+    {"type": "hero_text", "headline": "Built to be dropped.", "body": "The 32 oz Insulated Steel Bottle keeps drinks cold all day and hot for 12 hours. **Lifetime warranty**, because it should last that long.", "button": {"text": "Shop the bottle", "href": "https://example.com/bottle"}},
+    {"type": "columns", "heading": "Why it works", "cols": 3, "items": [
+      {"title": "Leak-proof lid", "text": "Silicone-sealed twist cap. Toss it in any bag."},
+      {"title": "Fits cup holders", "text": "Slim 2.9\" base fits standard car holders."},
+      {"title": "Powder-coat grip", "text": "Sweat-free, scratch-resistant finish."}]},
+    {"type": "text", "heading": "The details", "bullets": ["18/8 food-grade stainless, no metallic taste", "BPA-free and dishwasher safe", "32 oz, triple-wall vacuum insulation"], "button": {"text": "See full specs", "href": "https://example.com/bottle#specs"}},
+    {"type": "quote", "text": "Left it in a hot car for a full shift. Still had ice.", "author": "Verified buyer", "bg": "#F1F6F6"},
+    {"type": "footer", "bg": "#132A2A", "color": "#B9CCCC", "links": [{"text": "Shop", "href": "https://example.com"}, {"text": "Contact", "href": "https://example.com/contact"}],
+     "lines": ["Northpeak · 123 Trail Road, Boulder, CO 80301", "No longer want these emails? {% unsubscribe %}"]}
+  ]
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="canvas" content="width={{ w }},height={{ h }},scale=2">
+<title>Review card</title>
+<style>
+  /* Review cards borrow the review platform's own look: its logo, and the font its site uses
+     (Reviews.io renders in the system UI font), so the card reads as the platform's, not ours. */
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#222}
+  #canvas{position:relative;width:{{ w }}px;height:{{ h }}px;overflow:hidden;background:{{ card.bg }};border:1px solid {{ card.border }};
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:{{ card.fg }};padding:22px 20px;display:flex;flex-direction:column}
+  .logo{height:22px;width:auto;align-self:flex-start}
+  .stars{margin-top:14px;font-size:20px;letter-spacing:2px;line-height:1;color:{{ card.star }}}
+  .quote{margin-top:12px;font-size:{{ card.size }}px;line-height:1.35;font-weight:600;letter-spacing:-.01em;flex:1}
+  .who{margin-top:12px;font-size:13px;line-height:1.3;color:{{ card.muted }}}
+  .who b{color:{{ card.fg }};font-weight:700}
+  .badge{display:inline-block;margin-left:6px;padding:2px 7px;border:1px solid {{ card.muted }};border-radius:4px;font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div id="canvas">
+  <img class="logo" src="{{ platform.logo }}" alt="">
+  <div class="stars">★★★★★</div>
+  <div class="quote">&ldquo;{{ quote }}&rdquo;</div>
+  <div class="who"><b>{{ name }}</b><span class="badge">Verified buyer</span></div>
+</div>
+</body>
+</html>

@@ -25,6 +25,7 @@ defringe.py      Fade the white halo a cutout/render shows on colored background
 restore_original.py  After a generative expand, paste the original photo's pixels back (keeps only the new edges AI-made)
 ai_inspect.py    Dump an existing .ai: artboards, layers, text frames, placed/embedded images
 ai_edit.py       Make variations of an existing .ai: swap photos (cover-fit), edit text, recolor, export
+emails/          Email builder: sections as <div> snippets with inline CSS, full email, ≤102 KB lite build (see Email below)
 project.py       Local-only export folders (~/Downloads/<Brand> Infographics/) + asset intake
 ai_export.py     Builds the Illustrator file: "Artwork" layer (vectors) + "Text" layer (live text)
 brand-guidelines/  Brand kits + house rules. READ brand-guidelines/README.md FIRST (agents too)
@@ -132,3 +133,12 @@ white-backdrop shots), composite onto the brand's dark color, and use that as th
 (brand setup, HTML rendering, .ai variations, product photos). It loads automatically when the
 repo is the working directory; add this directory as an additional working directory to use it
 from elsewhere.
+
+## Email
+
+`emails/build_email.py <spec.json>` builds an email as stackable snippets: each section is one
+`<div>` with inline CSS (no `<html>`, `<head>`, `<body>`, `<style>`), so it pastes into any ESP's
+HTML block. Graphic sections are rendered from `templates/` like any other graphic; text sections
+are live, responsive HTML. Output: `sections/`, `email.html`, `email-lite.html` when the markup
+exceeds Gmail's ~102 KB clip limit, `images/` to host, desktop and mobile previews, and a size and
+lint report. Example: `emails/examples/northpeak-launch.json`. Skill: `.claude/skills/email-designer/`.

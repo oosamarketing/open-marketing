@@ -70,6 +70,8 @@ def type_lead(b) -> str:
         s = f"{disp} for headlines, {body} for everything else."
     else:
         s = f"One family, {disp or body}, at two or three weights does all the work."
+    if any("all caps" in f["role"].lower() for f in b["fonts"]):
+        return s + " Set headlines and callouts in all caps; keep body copy in sentence case."
     s += " Keep headlines sentence case or Title Case"
     s += "; the wordmark is the only thing set in tracked caps." if _has_wordmark(b) else "; save all-caps for short labels."
     return s
@@ -113,7 +115,7 @@ def kit_html(b, assets: Path, draft: bool):
     cover_fg = light if _lum(cover_bg) < 0.5 else ink
     wm = f'<div class="wm">DRAFT — pending client confirmation</div>' if draft else ""
     sw = "".join(f'<div class="sw"><div class="chip" style="background:{c["hex"]}"></div><b>{esc(c["name"])}</b><code>{c["hex"]}</code><small>{esc(c["role"])}</small><p>{esc(c["usage"])}</p></div>' for c in b["colors"])
-    fonts_html = "".join(f'<div class="ft"><div class="sample" style="font-family:\'{f["family"]}\'">Aa {esc(b["tagline"])} 0123</div><b>{esc(f["family"])}</b> <span>{esc(f["role"])}</span><small>{esc(f["source"])} · fallback {esc(f["fallback"])}</small></div>' for f in b["fonts"])
+    fonts_html = "".join(f'<div class="ft"><div class="sample" style="font-family:\'{f["family"]}\';{'text-transform:uppercase' if 'all caps' in f['role'].lower() else ''}">Aa {esc(b["tagline"])} 0123</div><b>{esc(f["family"])}</b> <span>{esc(f["role"])}</span><small>{esc(f["source"])} · fallback {esc(f["fallback"])}</small></div>' for f in b["fonts"])
     dense = "dense" if (len(b["products"]) > 3 or sum(len(p["facts"]) for p in b["products"]) > 12) else ""
     prods = "".join(f'<div class="pr {dense}" style="border-left:10px solid {p["line_color"]}"><b>{esc(p["name"])}</b><div class="claim" style="font-family:\'{disp}\'">{esc(p["hero_claim"])}</div><ul>' + "".join(f"<li>{esc(x)}</li>" for x in p["facts"][:5]) + "</ul></div>" for p in b["products"][:4])
     tags = "".join(f'<li>{esc(t)}</li>' for t in b["taglines"][:8]); v = b["voice"]
@@ -121,6 +123,13 @@ def kit_html(b, assets: Path, draft: bool):
     if len(b["products"]) > 4: print(f"note: {len(b['products'])} products; the Products page shows the first 4", file=sys.stderr)
     logos_bg = "".join(f'<div class="lb" style="background:{bg}"><img src="{logo}"></div>' for bg in b["logo"]["backgrounds"])
     src = b["sources"]; conf = f"Confirmed by {esc(src['confirmed_by'])} on {esc(src['confirmed_at'])}." if src.get("confirmed_by") else "Not yet confirmed by the client."
+    # optional page: a brand's graphic devices (bursts, bubbles, stickers...) shown as one image with rules
+    g = b.get("graphics"); gfx = ""
+    if g:
+        gimg = (assets / Path(g["image"]).name).resolve().as_uri()
+        grules = "".join(f"<li>{esc(r)}</li>" for r in g.get("rules", []))
+        gfx = f'<div class="page"><h2><small>04</small>Graphic style</h2><p class="lead">{esc(g["lead"])}</p><img class="gfx" src="{gimg}"><ul class="rules">{grules}</ul><div class="foot">{esc(b["name"])} · Graphic style</div>{wm}</div>'
+    n_voice, n_prod = ("05", "06") if g else ("04", "05")
     return f"""<!doctype html><html><head><meta charset="utf-8"><title>{esc(b['name'])} Brand Kit</title>
 <link href="https://fonts.googleapis.com/css2?family={fonts}&display=swap" rel="stylesheet">
 <style>
@@ -139,7 +148,7 @@ h2{{font-family:'{disp}',serif;font-weight:400;font-size:26pt;margin-bottom:.15i
 .rules{{font-size:10.5pt;line-height:1.55}} .rules li{{margin-left:1.2em;margin-bottom:4px}}
 .pr.dense{{padding:.08in .2in;margin-bottom:.1in}} .pr.dense .claim{{font-size:15pt;margin:2px 0 3px}} .pr.dense ul{{font-size:8.5pt;line-height:1.35}} .pr.dense b{{font-size:10pt}}
 .pr{{padding:.15in .25in;margin-bottom:.22in;background:#f6f6f4;border-radius:0 10px 10px 0}} .pr b{{font-size:11pt}} .pr .claim{{font-size:20pt;margin:4px 0 6px}} .pr ul{{font-size:9.5pt;line-height:1.5;margin-left:1.1em}}
-.voice li{{margin-left:1.2em;font-size:10.5pt;line-height:1.55}} .two{{display:grid;grid-template-columns:1fr 1fr;gap:.3in}}
+.gfx{{width:100%;border:1px solid #eee;border-radius:8px;margin-bottom:.25in}} .voice li{{margin-left:1.2em;font-size:10.5pt;line-height:1.55}} .two{{display:grid;grid-template-columns:1fr 1fr;gap:.3in}}
 .tags li{{font-family:'{disp}',serif;font-size:17pt;line-height:1.5;list-style:none;border-bottom:1px solid #eee;padding:4px 0}}
 .wm{{position:absolute;right:.5in;top:.4in;font-size:8pt;letter-spacing:.2em;text-transform:uppercase;color:#c0392b;border:1px solid #c0392b;padding:4px 8px;border-radius:4px}}
 .page{{padding-bottom:.75in}}
@@ -149,20 +158,23 @@ h2{{font-family:'{disp}',serif;font-weight:400;font-size:26pt;margin-bottom:.15i
 <div class="page"><h2><small>01</small>Color</h2><p class="lead">{esc(color_lead(b))}</p><div class="grid">{sw}</div><div class="foot">{esc(b['name'])} · Color</div>{wm}</div>
 <div class="page"><h2><small>02</small>Typography</h2><p class="lead">{esc(type_lead(b))}</p>{fonts_html}<div class="foot">{esc(b['name'])} · Typography</div>{wm}</div>
 <div class="page"><h2><small>03</small>Logo</h2><p class="lead">{esc(b['logo']['description'])}</p><div class="logos">{logos_bg}</div><ul class="rules"><li>Clear space: {esc(b['logo']['clear_space'])}.</li><li>Minimum width: {b['logo']['min_width_px']} px on screen.</li><li>Do not recolor, stretch, outline, or add effects to the {'wordmark' if _has_wordmark(b) else 'logo'}.</li><li>On photography, place the logo on a color panel or in a corner over a calm area.</li></ul><div class="foot">{esc(b['name'])} · Logo</div>{wm}</div>
-<div class="page"><h2><small>04</small>Voice</h2><div class="two"><div><p class="lead"><b>Tone:</b> {esc(', '.join(v['tone']))}.<br><br>{esc(v['style'])}</p><ul class="voice"><li><b>Use:</b> {esc(', '.join(v['words_use']))}</li><li><b>Avoid:</b> {esc(', '.join(v['words_avoid']))}</li></ul></div><div><p class="lead" style="margin-bottom:.1in"><b>Headline bank</b></p><ul class="tags">{tags}</ul></div></div><div class="foot">{esc(b['name'])} · Voice</div>{wm}</div>
-<div class="page"><h2><small>05</small>Products</h2>{prods}<p class="lead" style="margin-top:.2in;font-size:9pt;color:#777">Source: extracted from {esc(src['extracted_from'])} on {esc(src['extracted_at'])}{' with client-supplied material' if src.get('client_supplied') else ''}. {conf}<br>{esc(src.get('extraction_notes',''))}</p><div class="foot">{esc(b['name'])} · Products & sources</div>{wm}</div>
+{gfx}
+<div class="page"><h2><small>{n_voice}</small>Voice</h2><div class="two"><div><p class="lead"><b>Tone:</b> {esc(', '.join(v['tone']))}.<br><br>{esc(v['style'])}</p><ul class="voice"><li><b>Use:</b> {esc(', '.join(v['words_use']))}</li><li><b>Avoid:</b> {esc(', '.join(v['words_avoid']))}</li></ul></div><div><p class="lead" style="margin-bottom:.1in"><b>Headline bank</b></p><ul class="tags">{tags}</ul></div></div><div class="foot">{esc(b['name'])} · Voice</div>{wm}</div>
+<div class="page"><h2><small>{n_prod}</small>Products</h2>{prods}<p class="lead" style="margin-top:.2in;font-size:9pt;color:#777">Source: extracted from {esc(src['extracted_from'])} on {esc(src['extracted_at'])}{' with client-supplied material' if src.get('client_supplied') else ''}. {conf}<br>{esc(src.get('extraction_notes',''))}</p><div class="foot">{esc(b['name'])} · Products & sources</div>{wm}</div>
 </body></html>"""
 
 def _resolve(b: dict, base: Path) -> None:
     """Logo paths in brand.json may be relative to the brand file, so example brands ship with the repo."""
     fix = lambda p: str(Path(p).expanduser() if Path(p).expanduser().is_absolute() else (base / p).resolve())
     b["logo"]["primary"] = fix(b["logo"]["primary"]); b["logo"]["variants"] = [fix(v) for v in b["logo"].get("variants", [])]
+    if b.get("graphics"): b["graphics"]["image"] = fix(b["graphics"]["image"])
 
 
 def build(brand_file: Path, out: Path):
     b = json.loads(brand_file.read_text()); _resolve(b, brand_file.parent); assets = out / "brand-assets"; (assets / "logo").mkdir(parents=True, exist_ok=True)
     for lg in [b["logo"]["primary"], *b["logo"].get("variants", [])]:
         if Path(lg).exists(): shutil.copy2(lg, assets / "logo" / Path(lg).name)
+    if b.get("graphics") and Path(b["graphics"]["image"]).exists(): shutil.copy2(b["graphics"]["image"], assets / Path(b["graphics"]["image"]).name)
     palette_png(b["colors"], assets / "palette.png")
     # round avatar for social/profile circles: logo on the primary color (and on the secondary, for the other line)
     prim = next(c["hex"] for c in b["colors"] if c["role"] == "primary"); sec = next((c["hex"] for c in b["colors"] if c["role"] == "secondary"), prim)

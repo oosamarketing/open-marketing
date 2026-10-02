@@ -55,6 +55,7 @@ merge, offer to move their customizations into `custom/` so the next update is c
 |---|---|---|
 | Brand colors/logo/fonts/voice, a brand kit PDF, a round avatar from a logo | `tools/brand-kit` | `.claude/skills/brand-kit/SKILL.md` |
 | An ad, Amazon infographic, A+ content, banner, product cutout, variations of an existing `.ai` | `tools/graphic-designer` | `tools/graphic-designer/CLAUDE.md` (house rules + approval gates), then `.claude/skills/graphic-designer/SKILL.md` |
+| A marketing email, newsletter, flow email, or one email section (paste-ready `<div>` snippets with inline CSS; full email; ≤102 KB version) | `tools/graphic-designer` | `.claude/skills/email-designer/SKILL.md` |
 | Where files should go, a new client or campaign folder | `.claude/skills/client-workspace/SKILL.md` | the skill itself |
 | Anything in Canva: build, repair, hand off, or a `canva.com` link (needs the Canva connector) | `.claude/skills/canva/SKILL.md` | the skill itself |
 
