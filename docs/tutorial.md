@@ -8,7 +8,7 @@ plain English. Plan on 15 minutes.
 - A Mac or Linux computer (Windows works through WSL).
 - **Claude Code.** Easiest: the Claude desktop app, *Code* tab. Or the terminal version:
   https://claude.com/claude-code
-- **git** and **Python 3.10+.** On a Mac, open the Terminal app and run `xcode-select --install`
+- **git** and **Python 3.11+.** On a Mac, open the Terminal app and run `xcode-select --install`
   if you've never installed developer tools; that gives you both.
 
 ## 2. Download and set up (one time)
@@ -121,6 +121,6 @@ Updating never touches your brands, photos or finished work. That is why the tut
 |---|---|
 | `python3: command not found` | Install Python from https://www.python.org/downloads/ and rerun `scripts/setup.sh` |
 | Setup ends with "test render failed" | Run `.venv/bin/playwright install chromium` and try again |
-| Fonts look wrong in an ad | The template loads fonts from Google Fonts; check your internet connection, or tell Claude which font to use |
+| Fonts look wrong in an ad | Google fonts load from the web at render time; check your connection. A licensed brand font (the brand kit says which) must be installed on your computer: give Claude the font file and it installs it |
 | Claude says a tool "isn't included yet" | Ad-copy generation and AI photo expand are being prepared for release; give Claude your own copy or a wider photo |
 | `.ai` export fails | It needs Adobe Illustrator on macOS and the brand fonts installed |

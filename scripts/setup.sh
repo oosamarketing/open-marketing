@@ -4,7 +4,9 @@
 #   scripts/setup.sh --cutouts    # also background removal for product photos (rembg, ~400 MB)
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$HERE"
-command -v python3 >/dev/null || { echo "Python 3.10+ is required: https://www.python.org/downloads/"; exit 1; }
+command -v python3 >/dev/null || { echo "Python 3.11+ is required: https://www.python.org/downloads/ (macOS: brew install python@3.12)"; exit 1; }
+python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 11) else 1)' || { echo "Python $(python3 --version 2>&1 | cut -d" " -f2) found; 3.11+ is required: https://www.python.org/downloads/"; exit 1; }
+echo "Setting up: Python environment, Playwright, and a Chromium download (~150 MB, once)."
 [ -d .venv ] || python3 -m venv .venv
 .venv/bin/pip -q install --upgrade pip
 .venv/bin/pip -q install playwright pillow numpy requests openpyxl

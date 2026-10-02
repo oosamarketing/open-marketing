@@ -5,8 +5,33 @@ to the right tool and follow that tool's own instructions**; do not rebuild it.
 
 ## First run
 
-If `.venv/` does not exist, run `scripts/setup.sh` (or ask the user to). Use `.venv/bin/python`
-for every script. Tool docs written from inside a tool folder refer to it as `../../.venv/bin/python`.
+Get the machine ready yourself; don't send the user to install things one by one.
+
+1. **Python 3.11+.** `python3 --version`. If it's missing or older, install it (macOS:
+   `brew install python@3.12` if Homebrew exists, otherwise point the user to python.org; Windows:
+   python.org installer with "Add to PATH"; Linux: the distro package). Then continue.
+2. **`scripts/setup.sh`** when `.venv/` does not exist. It creates the environment, installs
+   Playwright and downloads Chromium (~150 MB, one time), and test-renders the example brand. Say
+   what it is downloading. Add `--cutouts` only when the user will need background removal.
+3. **Fonts.** Graphics render with the brand's fonts. Google Fonts load from the web at render
+   time, but editable `.ai` exports and non-Google fonts need the font installed locally
+   (`~/Library/Fonts` on macOS, `%LOCALAPPDATA%\Microsoft\Windows\Fonts` on Windows). When a
+   brand's `tokens.json` names a `headline_font` or `font` that `fc-list` doesn't show: if it is a
+   Google font, download the TTF from the google/fonts GitHub repo and install it; if it is licensed
+   (the brand kit says so), ask the user for the file and, until it arrives, say the render is using
+   the fallback. Never claim a render is in the exact font when it isn't.
+4. Use `.venv/bin/python` for every script. Tool docs written from inside a tool folder refer to it
+   as `../../.venv/bin/python`.
+
+## When the user hands you a client folder
+
+Someone may give you a folder (often a zip) prepared with this toolkit: `branding/` with a brand
+kit and `brand-assets/`, and work folders like `email/<campaign>/` or `ads/`. Look for a
+`HANDOFF.md` or `README.md` at the top of it and read it first; it says what is finished, what the
+user is expected to do with it, and what is still open with the client. Specs in such folders are
+self-contained (`brand_tokens` points at `branding/brand-assets/tokens.json`), so rebuild from
+them in place and compare against the previews that came with the folder before changing anything.
+Don't move or rename what was handed over; add alongside it.
 
 ## Staying up to date
 
