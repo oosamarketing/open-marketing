@@ -75,12 +75,54 @@ heaviest text sections are rendered to images until it fits (footer, header and 
 stay live). The report says which sections were rasterized. Prefer fixing the cause when you can:
 cut repeated sections, or move long content to a landing page and link to it.
 
+## Weight: tell the user, and let them choose
+
+The 102 KB rule is about HTML. Images are the other half: every build reports the **total
+download** (HTML + images actually used) in `report.md` and compares it to benchmarks: plain
+text ~10 KB, a typical marketing email 500 KB–1.2 MB, over ~2 MB loads visibly slowly on mobile
+and some clients stop fetching images. Always state the total and the comparison when you
+deliver. Images are recompressed automatically with `compress.py`, which walks JPEG quality down
+until the pixel error would become visible, so the first fix is free.
+
+Then ask, when the email is image-heavy (a designer who builds every section as a graphic will
+get there fast): **rich** (default, full-quality images, ~1 MB budget) or **light** (`--profile
+light`: smaller, slightly softer images, ~400 KB). Suggest converting image-only text sections to
+live HTML before suggesting lower quality, since that cuts weight and fixes mobile legibility at
+once.
+
 ## Images need hosting
 
 Snippets reference `images/<file>` until the images have a public URL. Tell the user to upload the
 `images/` folder to their ESP or store files (Klaviyo image library, Shopify Files), then rebuild
 with `--base-url`. Never embed images as `data:` URIs: they count toward the 102 KB and many
 clients strip them.
+
+## Handing it to a human in the ESP editor
+
+Most editors (Klaviyo, Shopify Email, Redo, Mailchimp) let a person drop images into native
+blocks easily, but a pasted HTML snippet that references images needs those images hosted first.
+So deliver in two forms, following `build/handoff.md`, which the builder writes:
+
+- **Image-only sections** (hero graphic, logo bar, review cards, category tiles): tell the human
+  which native block to use ("3-image row", "2x2 grid", "image block"), which file from `images/`
+  goes in each slot, and the link and alt text for each. They never touch HTML for these.
+- **Live sections** (offer, comparison rows, text, buttons, footer): post the snippet **in the
+  chat as a code block** so they can copy it straight into a custom HTML block. One `<div>`,
+  inline CSS, nothing else. If a live section contains a small image (an icon), say where to
+  host it or swap the `src` for the editor's URL after upload.
+
+**Ask which sections the editor already has** before building, or at the latest before handing
+off: most editors ship presets for the footer (address, unsubscribe), social icons, a plain
+button, dividers and spacers. Those are not worth a custom HTML block; mark them
+`"editor": "preset"` in the spec so the handoff tells the human to use the built-in block (with
+the links and colors to match) and keeps the snippet only as a fallback. Custom HTML is for what
+the editor can't do well: an offer block with a code chip, comparison rows, styled text with
+bullets, anything with layout. One short question covers it: "Which of these does your editor
+already have as a block: footer, social icons, buttons?"
+
+Lead the handoff with the section order so the two kinds interleave correctly. When the user is
+assembling by hand, a `--base-url` rebuild is optional: they can also paste the editor's own
+hosted URLs into the snippet.
 
 ## Checks before sending anything to the user
 

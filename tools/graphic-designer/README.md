@@ -21,6 +21,7 @@ expand product photos when installed alongside (see *Product photos* below).
 render.py        CLI renderer: PNG/JPG (Playwright screenshot), PDF (vector), .ai (via Illustrator)
 cutout.py        Background removal + auto-crop (rembg) → transparent product PNG
 cutout_white.py  Background removal for white-backdrop shots where the subject is also white
+compress.py      Shrink JPEG/PNG for email and web without visible loss (quality ladder against a pixel-error threshold)
 defringe.py      Fade the white halo a cutout/render shows on colored backgrounds
 restore_original.py  After a generative expand, paste the original photo's pixels back (keeps only the new edges AI-made)
 ai_inspect.py    Dump an existing .ai: artboards, layers, text frames, placed/embedded images
