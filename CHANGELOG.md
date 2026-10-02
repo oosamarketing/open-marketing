@@ -2,6 +2,11 @@
 
 Newest first. `scripts/update.sh --check` shows the entries you don't have yet.
 
+## 0.2.2 — 2026-10-02
+- First run: the agent handles prerequisites itself (Python 3.11+, the Chromium download, brand fonts: Google fonts are installed, licensed ones are requested) instead of sending the user to do it.
+- Handed-over client folders: read their `HANDOFF.md` first, rebuild from the self-contained spec in place, compare with the included previews, add alongside, never reorganize.
+- `scripts/setup.sh` checks for Python 3.11+ and says what it downloads.
+
 ## 0.2.1 — 2026-10-02
 - Email: `build/handoff.md` assembly guide: image rows map to the editor's native image blocks (file, link, alt), live rows to custom HTML blocks with the snippet inline; `"editor": "preset"` marks footer/social/button sections the editor already provides.
 - Email: specs can be self-contained (`brand_tokens` next to the spec), so a client folder rebuilds anywhere.
