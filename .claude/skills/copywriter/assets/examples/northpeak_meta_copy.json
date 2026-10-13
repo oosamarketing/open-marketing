@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "platform": "meta",
+  "brand": {
+    "name": "Northpeak",
+    "website": "https://example.com",
+    "page_name": "Northpeak",
+    "logo_path": null,
+    "primary_color": "#0F6E6E",
+    "secondary_color": "#F5A623",
+    "font_family": null,
+    "identity": "Northpeak makes insulated stainless steel bottles and tumblers for commuters, hikers and gym-goers who care about how a thing is built.\n#1: Confident | Direct\nWe lead with the number: ice cold for 24 hours, hot for 12. We tested it, so we say it plainly and move on. Short sentences. No exclamation marks, no puns. A Northpeak bottle is built to be dropped, tossed in a bag and used all day, and the copy sounds like it.\n#2: Plain-spoken | Practical\nWe talk about what you can check: 18/8 stainless steel, a leak-proof lid, a base that fits a cup holder, a grip that stays dry. We never say premium, luxury, revolutionary or best. If a claim is not on the spec sheet, it is not in the ad."
+  },
+  "sets": [
+    {
+      "theme": "Steel Bottle 32 oz",
+      "landing_page_url": "https://example.com/products/steel-bottle-32oz",
+      "display_url": "example.com",
+      "media_folder_link": null,
+      "cta": "Shop now",
+      "audiences": {
+        "audience": "Commuters, hikers and gym-goers, ages 25-45",
+        "custom_audience": "Website visitors 180d, past purchasers lookalike 1%"
+      },
+      "fields": {
+        "primary_text": [
+          "🧊 Ice cold for 24 hours. Fill it in the morning, drink it cold at night.\n...\nTriple-wall vacuum insulation in 18/8 stainless steel. 32 oz, leak-proof lid, fits your cup holder.\n...\nGet the bottle that keeps up with your day.",
+          "💧 Built to be dropped. Then picked up and used again tomorrow.\n...\nPowder-coat grip, leak-proof twist cap, BPA-free and dishwasher safe. Backed by a lifetime warranty.\n...\nShop the 32 oz Steel Bottle.",
+          "🥾 One bottle for the commute, the gym and the trail.\n...\nThe 32 oz Steel Bottle keeps drinks cold for 24 hours and hot for 12, and its slim base fits a standard cup holder.\n...\nOrder yours today."
+        ],
+        "headline": [
+          "Ice cold for 24 hours.",
+          "Built to be dropped.",
+          "Get the 32 oz Steel Bottle"
+        ],
+        "description": [
+          "Leak-proof. Fits cup holders.",
+          "Lifetime warranty",
+          "24h cold, 12h hot"
+        ]
+      },
+      "notes": "Hook angles: the temperature claim, durability, use case. CTA blocks vary between 'get', 'shop', 'order'."
+    },
+    {
+      "theme": "Daily Commute",
+      "landing_page_url": "https://example.com/products/steel-bottle-32oz",
+      "display_url": "example.com",
+      "media_folder_link": null,
+      "cta": "Shop now",
+      "audiences": {},
+      "fields": {
+        "primary_text": [
+          "☕ Coffee that is still hot when the train finally shows up.\n...\nThe Northpeak Steel Bottle keeps drinks hot for 12 hours and cold for 24. The leak-proof lid means it rides in your bag, not in your hand.\n...\nShop the bottle built for the commute.",
+          "🚗 Fits the cup holder. Keeps the ice.\n...\nA slim 2.9 inch base, 32 oz of room and triple-wall insulation that holds cold all day.\n...\nGet yours before Monday.",
+          "🎒 Toss it in any bag. The lid does not leak.\n...\n18/8 stainless steel with a silicone-sealed twist cap and a grip that stays dry.\n...\nSee the 32 oz Steel Bottle."
+        ],
+        "headline": [
+          "Hot coffee, 12 hours later",
+          "Fits your cup holder",
+          "The leak-proof commute bottle"
+        ],
+        "description": [
+          "Built for all day",
+          "BPA-free, dishwasher safe",
+          "32 oz of ice cold"
+        ]
+      },
+      "notes": null
+    }
+  ],
+  "validation": null,
+  "meta": {
+    "generated_by": "agent",
+    "model": null,
+    "created_at": "2026-09-14T12:00:00+00:00"
+  }
+}

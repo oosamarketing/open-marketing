@@ -29,8 +29,15 @@ New to this? Follow the step-by-step **[tutorial](docs/tutorial.md)**.
 |---|---|
 | [`tools/brand-kit`](tools/brand-kit) | Reads your website and pulls out the logo, the colors actually used, fonts, taglines and tone. You confirm, and it builds a brand kit PDF plus a `brand-assets/` folder (logo files, round avatar, palette, tokens) the design tool reads. |
 | [`tools/graphic-designer`](tools/graphic-designer) | Ads, Amazon gallery infographics and A+ rows as HTML/CSS templates rendered to PNG/JPG at exact platform sizes. Background removal for product photos. On a Mac with Adobe Illustrator it can also export editable `.ai` files with live text and make variations of an existing `.ai` template. Marketing emails as paste-ready sections: each a single `<div>` with inline CSS, graphics where design needs them and live text everywhere else, with a Gmail-safe build under 102 KB. |
+| [`tools/ad-copywriter`](tools/ad-copywriter) | Meta and Google ad copy your agent writes in a consistent style, then checks by code against each platform's character limits. Exports to xlsx, csv and docx for hand-off, and renders a preview deck with Facebook, Instagram and Google mockups. |
+| [`tools/amazon-analyst`](tools/amazon-analyst) | Amazon product, keyword and competitor research from the terminal: what sells for a keyword, which keywords a market runs on, and how that changes over time, stored locally. Read its "Research use only" note first. |
 | [`.claude/skills/canva`](.claude/skills/canva) | For teams that work in Canva: with the Canva connector attached, the agent builds designs natively in Canva (editable text and shapes), repairs designs you already have there, and knows what Canva's importers can't do. |
 | [`.claude/skills/client-workspace`](.claude/skills/client-workspace) | Keeps client files organized: it works inside the folders you already have, or sets up a clean layout, and remembers your preferences in a `workspace.md`. |
+| [`reporting-starter`](reporting-starter) | Sample ads and sales data, shaped like what an ads or store API returns, so you can try reporting today: "turn this week into a one-page report", "which campaign should I pause and why". It also explains how to get API access for real numbers and how Claude's Google Drive and Gmail connectors and scheduled tasks handle regular reports. |
+| [`shopify`](shopify) | A guide for you and your agent: build or reshape a Shopify theme with Shopify's own theme CLI instead of buying a premium one, and do on-page SEO with Claude in the browser, without touching the live theme until you say so. |
+| [`landing-pages`](landing-pages) | A guide for you and your agent: design a landing page first, then have the agent build it with Next.js, and how to judge the result (a clear offer, one action, fast, right on a phone). It stops at a page running on your computer; putting it online is not covered. |
+| [`.claude/skills/seo`](.claude/skills/seo) | On-page SEO without a tool to install: the agent works in your signed-in browser or your platform's CLI on titles, descriptions, headings, image descriptions, structured data and social previews, shows you every change before it is saved, and leaves a before-and-after note. |
+| [`.claude/skills/blogpost`](.claude/skills/blogpost) | A blog post done properly: one keyword per page, a real photo, a check of the live page, an honest read of whether it sounds like you, and whether it belongs on your site by Google's own quality principles. |
 
 A worked example brand, **Northpeak**, ships with the repo so you can see output before using your own brand:
 
@@ -40,7 +47,7 @@ cd tools/graphic-designer
     --data data/northpeak-meta-1x1.json --out out/northpeak-ad.png
 ```
 
-More tools (ad copy, image generation and photo expand, Amazon research) are being prepared for release.
+More tools are being prepared for release.
 
 ## How it works with an agent
 

@@ -1,0 +1,320 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/oosamarketing/ad-copywriter/copy_document.schema.json",
+  "title": "Ad copy document",
+  "description": "Interchange format for ad copy written by an agent or generator. One document = one brand + one platform + one or more themed sets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "platform",
+    "brand",
+    "sets"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "platform": {
+      "enum": [
+        "meta",
+        "google_pmax",
+        "google_rsa"
+      ]
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "website": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Meta page name shown in the feed mockup; defaults to name."
+        },
+        "logo_path": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Path or URL of a logo for previews; null renders a text wordmark."
+        },
+        "primary_color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "secondary_color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "font_family": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Brand identity / voice text the copy was written from."
+        },
+        "avatar_path": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Square PNG used as the round page avatar in Meta mockups (make one with preview/avatar.py: logo centered on a brand-color disc)."
+        }
+      }
+    },
+    "sets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "theme",
+          "fields"
+        ],
+        "properties": {
+          "theme": {
+            "type": "string",
+            "minLength": 1
+          },
+          "landing_page_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "display_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "media_folder_link": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "media_path": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Local image path or URL used as the ad creative in Meta mockups."
+          },
+          "cta": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Meta CTA button label, e.g. Shop now."
+          },
+          "audiences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "primary_text": {
+                "$ref": "#/$defs/options"
+              },
+              "headline": {
+                "$ref": "#/$defs/options"
+              },
+              "description": {
+                "$ref": "#/$defs/options"
+              },
+              "long_headline": {
+                "$ref": "#/$defs/options"
+              },
+              "path": {
+                "$ref": "#/$defs/options"
+              },
+              "sitelink": {
+                "$ref": "#/$defs/options"
+              },
+              "callout": {
+                "$ref": "#/$defs/options"
+              }
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "media_paths": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Creatives for the mockups, one per variation, rotating. Items are a path/URL string or {\"square\": path, \"wide\": path}; Instagram cards use square, Facebook cards prefer wide. Overrides media_path when present.",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "square": {
+                      "type": "string"
+                    },
+                    "wide": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "checked_at": {
+          "type": "string"
+        },
+        "spec_version": {
+          "type": "integer"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/issue"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/issue"
+          }
+        },
+        "summary": {
+          "type": "object"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "generated_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "set",
+        "field",
+        "code",
+        "message"
+      ],
+      "properties": {
+        "set": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "field": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "chars": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "limit": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

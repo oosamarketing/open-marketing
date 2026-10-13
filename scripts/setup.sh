@@ -10,6 +10,7 @@ echo "Setting up: Python environment, Playwright, and a Chromium download (~150 
 [ -d .venv ] || python3 -m venv .venv
 .venv/bin/pip -q install --upgrade pip
 .venv/bin/pip -q install playwright pillow numpy requests openpyxl
+.venv/bin/pip -q install -e tools/ad-copywriter      # ad copy: validation, xlsx/csv/docx export, previews
 .venv/bin/playwright install chromium
 if [ "${1:-}" = "--cutouts" ]; then .venv/bin/pip -q install "rembg[cpu]" scipy; fi
 echo; echo "Testing with the example brand…"

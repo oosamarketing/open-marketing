@@ -122,5 +122,5 @@ Updating never touches your brands, photos or finished work. That is why the tut
 | `python3: command not found` | Install Python from https://www.python.org/downloads/ and rerun `scripts/setup.sh` |
 | Setup ends with "test render failed" | Run `.venv/bin/playwright install chromium` and try again |
 | Fonts look wrong in an ad | Google fonts load from the web at render time; check your connection. A licensed brand font (the brand kit says which) must be installed on your computer: give Claude the font file and it installs it |
-| Claude says a tool "isn't included yet" | Ad-copy generation and AI photo expand are being prepared for release; give Claude your own copy or a wider photo |
+| A photo is too narrow for the format | The toolkit does not generate or widen images; give Claude a wider photo, or let it use a two-column layout |
 | `.ai` export fails | It needs Adobe Illustrator on macOS and the brand fonts installed |

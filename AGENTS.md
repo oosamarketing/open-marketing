@@ -81,14 +81,19 @@ merge, offer to move their customizations into `custom/` so the next update is c
 |---|---|---|
 | Brand colors/logo/fonts/voice, a brand kit PDF, a round avatar from a logo | `tools/brand-kit` | `.claude/skills/brand-kit/SKILL.md` |
 | An ad, Amazon infographic, A+ content, banner, product cutout, variations of an existing `.ai` | `tools/graphic-designer` | `tools/graphic-designer/CLAUDE.md` (house rules + approval gates), then `.claude/skills/graphic-designer/SKILL.md` |
+| Meta or Google ad copy within platform limits, a copy deck, a client preview with Facebook, Instagram and Google mockups | `tools/ad-copywriter` | `.claude/skills/copywriter/SKILL.md`, then `.claude/skills/pdf_preview/SKILL.md` (a PDF also needs WeasyPrint; HTML needs nothing extra) |
+| Amazon product, keyword and competitor research | `tools/amazon-analyst` | its `README.md`, starting with its "Research use only" note: tell the user what it says before the first run. First use: `.venv/bin/pip install -e tools/amazon-analyst` and `.venv/bin/playwright install firefox`; say what is downloaded |
 | A marketing email, newsletter, flow email, or one email section (paste-ready `<div>` snippets with inline CSS; full email; ≤102 KB version) | `tools/graphic-designer` | `.claude/skills/email-designer/SKILL.md` |
 | Where files should go, a new client or campaign folder | `.claude/skills/client-workspace/SKILL.md` | the skill itself |
 | Anything in Canva: build, repair, hand off, or a `canva.com` link (needs the Canva connector) | `.claude/skills/canva/SKILL.md` | the skill itself |
+| A report from ads or sales numbers, "which campaign should I pause", a weekly report or alert email | `reporting-starter/` | its `CLAUDE.md` (sample data only: say so in everything made from it) |
+| A Shopify theme built or reshaped, on-page SEO in the Shopify admin | `shopify/` | its `CLAUDE.md` (a guide; there is no tool) |
+| On-page SEO on the user's own site: titles and descriptions, headings, alt text, structured data, social preview tags, internal links, "will AI answers find us" | `.claude/skills/seo/SKILL.md` | the skill itself (guidance; you work in the user's signed-in browser or the platform's CLI) |
+| A blog post or article: one keyword, a photo, a check of the live page, whether it belongs on this brand's site | `.claude/skills/blogpost/SKILL.md` | the skill itself (guidance) |
+| A landing page for an offer or a campaign | `landing-pages/` | its `CLAUDE.md` (a guide: design it, build it with Next.js; putting it online is not covered) |
 
-Not included yet (say so rather than improvising): ad copy generation and client preview PDFs,
-image generation and generative photo expand, Amazon research. If a tool doc mentions
-an image-generation or ad-copy tool, that step is unavailable in this release; offer the
-closest alternative (a tighter crop, the user's own copy).
+This toolkit does not generate images (say so rather than improvising): when a photo is missing or
+too narrow for a format, ask the user for one or offer a tighter crop or a two-column layout.
 
 ## Before saving anything for a client
 

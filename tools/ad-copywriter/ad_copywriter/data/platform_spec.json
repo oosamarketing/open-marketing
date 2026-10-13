@@ -1,0 +1,179 @@
+{
+  "spec_version": 1,
+  "count_mode": "codepoints",
+  "block_separator": "...",
+  "platforms": {
+    "meta": {
+      "label": "Meta Ads",
+      "deck_title": "Meta Ad Copy",
+      "deck_subtitle": "A preview of the Meta ad copy for your review.",
+      "sheet_name": "Meta Ads Assets",
+      "export_filename": "meta-ads-copywriting-assets",
+      "mockup": "meta_feed",
+      "fields": [
+        {
+          "key": "primary_text",
+          "label": "Primary text",
+          "plural": "Primary Text",
+          "legacy_column": "Primary Text",
+          "max_chars": 2200,
+          "fold_chars": 125,
+          "count": 5,
+          "min_count": 1,
+          "multiline": true,
+          "style": {"blocks": true, "emoji_lead": true, "cta_block": true}
+        },
+        {
+          "key": "headline",
+          "label": "Headline",
+          "plural": "Headlines",
+          "legacy_column": "Headline",
+          "max_chars": 40,
+          "count": 5,
+          "min_count": 1,
+          "style": {"max_words": 12}
+        },
+        {
+          "key": "description",
+          "label": "Description",
+          "plural": "Descriptions",
+          "legacy_column": "Description",
+          "max_chars": 30,
+          "count": 5,
+          "min_count": 1,
+          "style": {"max_words": 8}
+        }
+      ],
+      "rows": [
+        {"key": "landing_page_url", "label": "Landing page URL"},
+        {"key": "display_url", "label": "Display URL"},
+        {"key": "media_folder_link", "label": "Media folder link"}
+      ],
+      "optional_rows": [
+        {"key": "audience", "label": "Audience"},
+        {"key": "custom_audience", "label": "Custom audience"}
+      ],
+      "legacy_columns": ["Primary Text", "Headline", "Description"]
+    },
+    "google_pmax": {
+      "label": "Google Ads (Performance Max)",
+      "deck_title": "Google Ads Copy",
+      "deck_subtitle": "A preview of the Performance Max text assets for your review.",
+      "sheet_name": "Google Ads Assets",
+      "export_filename": "google-ads-copywriting-assets",
+      "mockup": "google_search",
+      "fields": [
+        {
+          "key": "headline",
+          "label": "Headline",
+          "plural": "Headlines",
+          "legacy_column": "Headline",
+          "max_chars": 30,
+          "count": 15,
+          "min_count": 5,
+          "batches": [5, 10, 15],
+          "style": {"no_exclamation": true}
+        },
+        {
+          "key": "long_headline",
+          "label": "Long Headline",
+          "plural": "Long Headlines",
+          "legacy_column": "Long Headline",
+          "max_chars": 90,
+          "count": 5,
+          "min_count": 1
+        },
+        {
+          "key": "description",
+          "label": "Description",
+          "plural": "Descriptions",
+          "legacy_column": "Description",
+          "max_chars": 90,
+          "count": 4,
+          "min_count": 2
+        },
+        {
+          "key": "path",
+          "label": "Display URL",
+          "plural": "Display URL path",
+          "max_chars": 15,
+          "count": 1,
+          "min_count": 0,
+          "numbered": false,
+          "style": {"no_spaces": true}
+        },
+        {
+          "key": "sitelink",
+          "label": "Sitelink",
+          "plural": "Sitelinks",
+          "max_chars": 25,
+          "count": 4,
+          "min_count": 0,
+          "optional": true
+        },
+        {
+          "key": "callout",
+          "label": "Callout",
+          "plural": "Callouts",
+          "max_chars": 25,
+          "count": 4,
+          "min_count": 0,
+          "optional": true
+        }
+      ],
+      "rows": [
+        {"key": "landing_page_url", "label": "Landing Page URL"},
+        {"key": "media_folder_link", "label": "Media folder link"}
+      ],
+      "optional_rows": [
+        {"key": "interests", "label": "Interests"},
+        {"key": "in_market", "label": "In-Market"},
+        {"key": "first_party_data", "label": "First Party Data"}
+      ],
+      "legacy_columns": ["Headline", "Long Headline", "Description"]
+    },
+    "google_rsa": {
+      "label": "Google Ads (Search / RSA)",
+      "deck_title": "Google Ads Copy",
+      "deck_subtitle": "A preview of the responsive search ad copy for your review.",
+      "sheet_name": "Google Ads Assets",
+      "export_filename": "google-ads-copywriting-assets",
+      "mockup": "google_search",
+      "fields": [
+        {
+          "key": "headline",
+          "label": "Headline",
+          "plural": "Headlines",
+          "legacy_column": "Headline",
+          "max_chars": 30,
+          "count": 15,
+          "min_count": 3,
+          "style": {"no_exclamation": true}
+        },
+        {
+          "key": "description",
+          "label": "Description",
+          "plural": "Descriptions",
+          "legacy_column": "Description",
+          "max_chars": 90,
+          "count": 4,
+          "min_count": 2
+        },
+        {
+          "key": "path",
+          "label": "Path",
+          "plural": "Display paths",
+          "max_chars": 15,
+          "count": 2,
+          "min_count": 0,
+          "style": {"no_spaces": true}
+        }
+      ],
+      "rows": [
+        {"key": "landing_page_url", "label": "Final URL"}
+      ],
+      "optional_rows": [],
+      "legacy_columns": ["Headline", "Description"]
+    }
+  }
+}

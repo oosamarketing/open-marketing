@@ -5,6 +5,10 @@ __pycache__/
 out/
 work/
 dist/
+*.egg-info/
+.env
+output/
+data/*.sqlite3
 # your own brands stay local
 tools/graphic-designer/brand-guidelines/brands/*/
 !tools/graphic-designer/brand-guidelines/brands/_template/

@@ -1,0 +1,22 @@
+{
+  "platform": "meta",
+  "brand": {
+    "name": "Northpeak",
+    "website": "https://example.com",
+    "identity": "Northpeak makes insulated stainless steel bottles and tumblers for commuters, hikers and gym-goers who care about how a thing is built.\n#1: Confident | Direct\nWe lead with the number: ice cold for 24 hours, hot for 12. We tested it, so we say it plainly and move on. Short sentences. No exclamation marks, no puns. A Northpeak bottle is built to be dropped, tossed in a bag and used all day, and the copy sounds like it.\n#2: Plain-spoken | Practical\nWe talk about what you can check: 18/8 stainless steel, a leak-proof lid, a base that fits a cup holder, a grip that stays dry. We never say premium, luxury, revolutionary or best. If a claim is not on the spec sheet, it is not in the ad."
+  },
+  "themes": [
+    "Get the Northpeak 32 oz Steel Bottle before summer and keep your drinks ice cold all day on the trail."
+  ],
+  "existing_copy": [
+    {
+      "primary_text": "🧊 Ice cold for 24 hours. Fill it in the morning, drink it cold at night.\n...\nTriple-wall vacuum insulation in 18/8 stainless steel. 32 oz, leak-proof lid, fits your cup holder.\n...\nGet the bottle that keeps up with your day.",
+      "headline": "Ice cold for 24 hours.",
+      "description": "Lifetime warranty"
+    }
+  ],
+  "options": 3,
+  "landing_page_url": "https://example.com/products/steel-bottle-32oz",
+  "display_url": "example.com",
+  "cta": "Shop now"
+}

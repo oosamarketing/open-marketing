@@ -2,6 +2,12 @@
 
 Newest first. `scripts/update.sh --check` shows the entries you don't have yet.
 
+## 0.3.0 — 2026-10-13
+- New tool: `tools/ad-copywriter`, with the skills `copywriter` and `pdf_preview`. Your agent writes Meta and Google ad copy in a consistent style; code checks it against platform limits, exports xlsx / csv / docx, and renders a preview deck with Facebook, Instagram and Google mockups. `scripts/setup.sh` installs it; on an existing copy run `.venv/bin/pip install -e tools/ad-copywriter` once.
+- New tool: `tools/amazon-analyst`, Amazon product, keyword and competitor research from the terminal. Read its "Research use only" note first.
+- New skills with no code: `seo` (on-page SEO done by your agent in your signed-in browser or your platform's CLI, with a before-and-after note) and `blogpost` (one keyword per page, a real photo, a check of the live page, and whether the post belongs on your site).
+- New guides: `landing-pages/` (design a page, build it with Next.js, judge it; putting it online is not covered), `shopify/` (a theme built or reshaped with Shopify's theme CLI, SEO with Claude in the browser, the live theme never touched) and `reporting-starter/` (sample ads and sales data to try reporting before you have API access).
+
 ## 0.2.3 — 2026-10-02
 - Email handoff shows a picture of every section next to its instructions and snippet (`handoff.md` with embedded images, plus `handoff.html` to open in a browser); the skill presents handoffs the same way in chat.
 - `docs/teammate-prompt.md`: a plain-language starter prompt for someone receiving a client folder and starting from an empty folder.

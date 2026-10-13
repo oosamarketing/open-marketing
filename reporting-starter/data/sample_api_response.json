@@ -1,0 +1,578 @@
+{
+ "_note": "SAMPLE DATA. Invented numbers for the fictional brand Northpeak. Not from any real account. The shape is typical of an ads reporting API; it is not any one platform's exact format.",
+ "account": {
+  "id": "SAMPLE-ACCOUNT",
+  "name": "Northpeak (sample)",
+  "currency": "USD",
+  "timezone": "America/Chicago"
+ },
+ "date_range": {
+  "since": "2026-09-22",
+  "until": "2026-09-28"
+ },
+ "data": [
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-22",
+   "metrics": {
+    "impressions": 9734,
+    "clicks": 76,
+    "spend": 107.17,
+    "conversions": 1,
+    "conversion_value": 35.33
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-22",
+   "metrics": {
+    "impressions": 2290,
+    "clicks": 44,
+    "spend": 35.13,
+    "conversions": 3,
+    "conversion_value": 105.97
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-22",
+   "metrics": {
+    "impressions": 722,
+    "clicks": 86,
+    "spend": 28.67,
+    "conversions": 7,
+    "conversion_value": 302.4
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-22",
+   "metrics": {
+    "impressions": 5837,
+    "clicks": 75,
+    "spend": 82.35,
+    "conversions": 2,
+    "conversion_value": 77.26
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-22",
+   "metrics": {
+    "impressions": 5956,
+    "clicks": 35,
+    "spend": 55.32,
+    "conversions": 5,
+    "conversion_value": 157.34
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-23",
+   "metrics": {
+    "impressions": 10180,
+    "clicks": 75,
+    "spend": 116.99,
+    "conversions": 1,
+    "conversion_value": 35.71
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-23",
+   "metrics": {
+    "impressions": 2393,
+    "clicks": 48,
+    "spend": 38.52,
+    "conversions": 3,
+    "conversion_value": 118.97
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-23",
+   "metrics": {
+    "impressions": 752,
+    "clicks": 90,
+    "spend": 28.29,
+    "conversions": 9,
+    "conversion_value": 345.65
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-23",
+   "metrics": {
+    "impressions": 5554,
+    "clicks": 80,
+    "spend": 81.32,
+    "conversions": 2,
+    "conversion_value": 71.49
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-23",
+   "metrics": {
+    "impressions": 5844,
+    "clicks": 38,
+    "spend": 54.61,
+    "conversions": 4,
+    "conversion_value": 131.18
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-24",
+   "metrics": {
+    "impressions": 9741,
+    "clicks": 72,
+    "spend": 104.95,
+    "conversions": 1,
+    "conversion_value": 33.13
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-24",
+   "metrics": {
+    "impressions": 2363,
+    "clicks": 49,
+    "spend": 38.15,
+    "conversions": 3,
+    "conversion_value": 112.56
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-24",
+   "metrics": {
+    "impressions": 678,
+    "clicks": 77,
+    "spend": 26.07,
+    "conversions": 7,
+    "conversion_value": 268.3
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-24",
+   "metrics": {
+    "impressions": 5731,
+    "clicks": 74,
+    "spend": 83.16,
+    "conversions": 2,
+    "conversion_value": 70.59
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-24",
+   "metrics": {
+    "impressions": 6376,
+    "clicks": 38,
+    "spend": 54.95,
+    "conversions": 4,
+    "conversion_value": 126.89
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-25",
+   "metrics": {
+    "impressions": 11136,
+    "clicks": 80,
+    "spend": 118.39,
+    "conversions": 1,
+    "conversion_value": 37.23
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-25",
+   "metrics": {
+    "impressions": 2337,
+    "clicks": 52,
+    "spend": 37.92,
+    "conversions": 3,
+    "conversion_value": 106.12
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-25",
+   "metrics": {
+    "impressions": 708,
+    "clicks": 83,
+    "spend": 27.99,
+    "conversions": 7,
+    "conversion_value": 265.69
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-25",
+   "metrics": {
+    "impressions": 5846,
+    "clicks": 76,
+    "spend": 79.48,
+    "conversions": 2,
+    "conversion_value": 79.76
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-25",
+   "metrics": {
+    "impressions": 5540,
+    "clicks": 34,
+    "spend": 51.7,
+    "conversions": 3,
+    "conversion_value": 103.7
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-26",
+   "metrics": {
+    "impressions": 10451,
+    "clicks": 77,
+    "spend": 117.33,
+    "conversions": 1,
+    "conversion_value": 38.46
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-26",
+   "metrics": {
+    "impressions": 2549,
+    "clicks": 56,
+    "spend": 42.34,
+    "conversions": 3,
+    "conversion_value": 114.99
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-26",
+   "metrics": {
+    "impressions": 775,
+    "clicks": 86,
+    "spend": 30.2,
+    "conversions": 8,
+    "conversion_value": 323.07
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-26",
+   "metrics": {
+    "impressions": 6842,
+    "clicks": 103,
+    "spend": 95.52,
+    "conversions": 3,
+    "conversion_value": 117.8
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-26",
+   "metrics": {
+    "impressions": 6538,
+    "clicks": 36,
+    "spend": 60.24,
+    "conversions": 3,
+    "conversion_value": 101.0
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-27",
+   "metrics": {
+    "impressions": 11132,
+    "clicks": 66,
+    "spend": 117.78,
+    "conversions": 0,
+    "conversion_value": 0.0
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-27",
+   "metrics": {
+    "impressions": 2640,
+    "clicks": 53,
+    "spend": 40.33,
+    "conversions": 3,
+    "conversion_value": 110.96
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-27",
+   "metrics": {
+    "impressions": 866,
+    "clicks": 89,
+    "spend": 32.35,
+    "conversions": 9,
+    "conversion_value": 354.85
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-27",
+   "metrics": {
+    "impressions": 6049,
+    "clicks": 82,
+    "spend": 85.7,
+    "conversions": 2,
+    "conversion_value": 75.44
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-27",
+   "metrics": {
+    "impressions": 6560,
+    "clicks": 36,
+    "spend": 56.95,
+    "conversions": 4,
+    "conversion_value": 137.45
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-001",
+    "name": "Steel Bottle 32 oz | Prospecting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-28",
+   "metrics": {
+    "impressions": 9906,
+    "clicks": 65,
+    "spend": 105.29,
+    "conversions": 0,
+    "conversion_value": 0.0
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-M-002",
+    "name": "Steel Bottle 32 oz | Retargeting",
+    "platform": "meta",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-28",
+   "metrics": {
+    "impressions": 2134,
+    "clicks": 41,
+    "spend": 34.81,
+    "conversions": 2,
+    "conversion_value": 81.6
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-001",
+    "name": "Search | Brand",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-28",
+   "metrics": {
+    "impressions": 741,
+    "clicks": 86,
+    "spend": 29.19,
+    "conversions": 9,
+    "conversion_value": 366.89
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-G-002",
+    "name": "Performance Max | Steel Bottles",
+    "platform": "google",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-28",
+   "metrics": {
+    "impressions": 5603,
+    "clicks": 70,
+    "spend": 81.96,
+    "conversions": 2,
+    "conversion_value": 71.52
+   }
+  },
+  {
+   "campaign": {
+    "id": "SAMPLE-A-001",
+    "name": "Sponsored Products | Steel Bottle",
+    "platform": "amazon",
+    "status": "ACTIVE"
+   },
+   "date": "2026-09-28",
+   "metrics": {
+    "impressions": 6406,
+    "clicks": 40,
+    "spend": 59.41,
+    "conversions": 4,
+    "conversion_value": 144.98
+   }
+  }
+ ],
+ "paging": {
+  "next": null
+ }
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amazon-analyst"
+version = "0.1.0"
+description = "Free Amazon product, keyword and competitor research: search-page sales floors, catalog enrichment, keyword demand, and an LLM competitive analysis. Research use only."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "playwright>=1.44",
+    "beautifulsoup4>=4.12",
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+llm = ["openai>=1.0"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+amazon-analyst = "amazon_analyst.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["amazon_analyst*"]

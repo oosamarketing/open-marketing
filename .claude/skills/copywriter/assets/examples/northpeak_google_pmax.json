@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "platform": "google_pmax",
+  "brand": {
+    "name": "Northpeak",
+    "website": "https://example.com",
+    "page_name": "Northpeak",
+    "logo_path": null,
+    "primary_color": "#0F6E6E",
+    "secondary_color": "#F5A623",
+    "font_family": null,
+    "identity": "Northpeak makes insulated stainless steel bottles and tumblers for commuters, hikers and gym-goers who care about how a thing is built.\n#1: Confident | Direct\nWe lead with the number: ice cold for 24 hours, hot for 12. We tested it, so we say it plainly and move on. Short sentences. No exclamation marks, no puns. A Northpeak bottle is built to be dropped, tossed in a bag and used all day, and the copy sounds like it.\n#2: Plain-spoken | Practical\nWe talk about what you can check: 18/8 stainless steel, a leak-proof lid, a base that fits a cup holder, a grip that stays dry. We never say premium, luxury, revolutionary or best. If a claim is not on the spec sheet, it is not in the ad."
+  },
+  "sets": [
+    {
+      "theme": "Steel Bottles",
+      "landing_page_url": "https://example.com/collections/bottles",
+      "display_url": "example.com/bottles",
+      "media_folder_link": null,
+      "cta": null,
+      "audiences": {
+        "interests": "Hiking, commuting, fitness",
+        "in_market": "Water bottles, outdoor gear",
+        "first_party_data": "Customer list, website visitors 180d"
+      },
+      "fields": {
+        "headline": [
+          "Northpeak Steel Bottles",
+          "Ice Cold For 24 Hours",
+          "Northpeak 32 oz Bottle",
+          "Built To Be Dropped",
+          "Leak-Proof Insulated Bottle",
+          "Hot For 12, Cold For 24",
+          "Fits Standard Cup Holders",
+          "18/8 Stainless Steel Bottle",
+          "Shop Insulated Bottles",
+          "Lifetime Warranty Included"
+        ],
+        "long_headline": [
+          "Insulated steel bottles that keep drinks ice cold for 24 hours and hot for 12.",
+          "A 32 oz bottle with a leak-proof lid and a base that fits your cup holder.",
+          "Built to be dropped. Northpeak steel bottles come with a lifetime warranty.",
+          "Triple-wall 18/8 stainless steel, BPA-free and dishwasher safe. Shop Northpeak.",
+          "One bottle for the commute, the gym and the trail. Cold all day."
+        ],
+        "description": [
+          "Keeps drinks cold for 24 hours and hot for 12. Shop the 32 oz Steel Bottle today.",
+          "Leak-proof lid, powder-coat grip, fits cup holders. Order your Northpeak bottle now.",
+          "18/8 stainless steel, BPA-free, dishwasher safe. See the full Northpeak range.",
+          "Built to be dropped and backed for life. Get yours today."
+        ],
+        "path": [
+          "bottles"
+        ],
+        "sitelink": [
+          "Steel Bottle 32 oz",
+          "Tumblers",
+          "Lifetime Warranty",
+          "Care & Cleaning"
+        ],
+        "callout": [
+          "24h Cold, 12h Hot",
+          "Leak-Proof Lid",
+          "BPA-Free",
+          "Dishwasher Safe"
+        ]
+      },
+      "notes": "10 headlines (middle batch). Add 5 more brand/keyword variants to reach 15 before upload."
+    }
+  ],
+  "validation": null,
+  "meta": {
+    "generated_by": "agent",
+    "model": null,
+    "created_at": "2026-09-14T12:00:00+00:00"
+  }
+}

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ad-copywriter"
+version = "0.1.0"
+description = "OOSA ad copy skills: Meta / Google copywriter validation, exports and branded previews"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Proprietary"}
+authors = [{name = "OOSA Marketing"}]
+dependencies = [
+  "openpyxl>=3.1",
+  "python-docx>=1.1",
+]
+
+[project.optional-dependencies]
+pdf = ["weasyprint>=60"]
+llm = ["anthropic>=0.96"]
+pandas = ["pandas>=2.2"]
+dev = ["pytest>=8", "jsonschema>=4"]
+all = ["weasyprint>=60", "anthropic>=0.96", "pandas>=2.2", "pytest>=8", "jsonschema>=4"]
+
+[tool.setuptools.packages.find]
+include = ["ad_copywriter*"]
+
+[tool.setuptools.package-data]
+ad_copywriter = [
+  "data/*.json",
+  "preview/templates/*",
+  "preview/assets/*",
+  "preview/assets/fonts/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
